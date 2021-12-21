@@ -1,5 +1,9 @@
 	
 	
+	<?php $__env->startSection('tab-title'); ?>
+		Manage Tentor
+	<?php $__env->stopSection(); ?>
+	
 	<?php $__env->startSection('sidebar'); ?>
 		<?php $__env->startComponent('components.adminSidebar'); ?>
 		<?php if (isset($__componentOriginal7ab380380899f581ff58adf0d1f49bb9fab50ded)): ?>
@@ -47,6 +51,18 @@
 					<?php endif; ?>
 					
 					 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'uniqueid','name' => 'Kode Unik Tentor','value' => ''.e($tentor->uniqueid).'','type' => 'text']]); ?>
+<?php $component->withName('input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes(['field' => 'uniqueid','name' => 'Kode Unik Tentor','value' => ''.e($tentor->uniqueid).'','type' => 'text']); ?>
+<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
+<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
+<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
+<?php endif; ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?> 
+					 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'username','name' => 'Username','value' => ''.e($tentor->username).'','type' => 'text']]); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -59,11 +75,11 @@
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
 					 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'password','name' => 'Password','value' => ''.e($tentor->password).'','type' => 'password']]); ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'name','name' => 'Nama Lengkap','value' => ''.e($tentor->name).'','type' => 'text']]); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['field' => 'password','name' => 'Password','value' => ''.e($tentor->password).'','type' => 'password']); ?>
+<?php $component->withAttributes(['field' => 'name','name' => 'Nama Lengkap','value' => ''.e($tentor->name).'','type' => 'text']); ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
@@ -71,11 +87,11 @@
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
 					 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'name','name' => 'Nama Lengkap','value' => ''.e($tentor->name).'','type' => 'text']]); ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'parentName','name' => 'Nama Orang Tua','value' => ''.e($tentor->name).'','type' => 'text']]); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['field' => 'name','name' => 'Nama Lengkap','value' => ''.e($tentor->name).'','type' => 'text']); ?>
+<?php $component->withAttributes(['field' => 'parentName','name' => 'Nama Orang Tua','value' => ''.e($tentor->name).'','type' => 'text']); ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
@@ -106,24 +122,31 @@
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
+					<!--
 					 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'mapel','name' => 'Mapel','value' => ''.e($tentor->mapel).'','type' => 'text']]); ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'package','name' => 'Paket Bimbingan','value' => ''.e($tentor->mapel).'','type' => 'text']]); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['field' => 'mapel','name' => 'Mapel','value' => ''.e($tentor->mapel).'','type' => 'text']); ?>
+<?php $component->withAttributes(['field' => 'package','name' => 'Paket Bimbingan','value' => ''.e($tentor->mapel).'','type' => 'text']); ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
+					-->
+					<select id="tentor" class="form-select choices mb-3" name="mapel" aria-label="Default mapel">
+						<?php $__currentLoopData = $mapel; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $each): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+							<option value="<?php echo e($each->name_mapel); ?>" <?php echo e(($tentor->mapel !== '') ? '' : (($tentor->mapel == $each->name_mapel) ? 'selected' : '')); ?>><?php echo e($each->name_mapel); ?></option>
+						<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+					</select>
 					 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'nohp','name' => 'Nomer HP (Whatsapp)','value' => ''.e($tentor->phone).'','type' => 'text']]); ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'phone','name' => 'Nomer HP (Whatsapp)','value' => ''.e($tentor->phone).'','type' => 'text']]); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['field' => 'nohp','name' => 'Nomer HP (Whatsapp)','value' => ''.e($tentor->phone).'','type' => 'text']); ?>
+<?php $component->withAttributes(['field' => 'phone','name' => 'Nomer HP (Whatsapp)','value' => ''.e($tentor->phone).'','type' => 'text']); ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
@@ -144,9 +167,14 @@
 	
 	<?php $__env->startSection('header-custom'); ?>
 	<link rel="stylesheet" href="<?php echo e(asset('assets/vendors/simple-datatables/style.css')); ?>">
+	<!-- Include Choices CSS -->
+    <link rel="stylesheet" href="<?php echo e(asset('assets/vendors/choices.js/choices.min.css')); ?>" />
 	<?php $__env->stopSection(); ?>
 	
 	<?php $__env->startSection('footer-custom'); ?>
+	<!-- Include Choices JavaScript -->
+    <script src="<?php echo e(asset('assets/vendors/choices.js/choices.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/pages/form-element-select.js')); ?>"></script>
 	<script src="<?php echo e(asset('assets/vendors/simple-datatables/simple-datatables.js')); ?>"></script>
     <script>
         // Simple Datatable

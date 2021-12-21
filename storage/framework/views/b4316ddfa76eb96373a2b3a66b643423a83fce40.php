@@ -1,8 +1,6 @@
 	
 	
-	<?php $__env->startSection('tab-title'); ?>
-		Administrator
-	<?php $__env->stopSection(); ?>
+	<?php $__env->startSection('tab-title','Administrator'); ?>
 	
 	<?php $__env->startSection('sidebar'); ?>
 		<?php $__env->startComponent('components.adminSidebar'); ?>

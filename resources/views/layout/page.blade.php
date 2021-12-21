@@ -1,14 +1,15 @@
 	@extends('layout.master')
 
 	@section('headers')
-		@yield('header-custom')
+		
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/vendors/iconly/bold.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 		<link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon">
-		<script src="{{ asset('assets/js/extensions/jquery-3.6.0.slim.js') }}"></script>
+		<script src="{{ asset('assets/js/extensions/jquery-3.6.0.js') }}"></script>
+		@yield('header-custom')
 	@endsection
 
 	@section('end-script')
@@ -25,7 +26,12 @@
 	
 	
 	@section('body')
-	
+		
+		<header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
 		
 		
 		<div class="page-heading">
@@ -33,6 +39,34 @@
         </div>
 		
 		<div class="page-content">
+			
+			{{-- Success Alert --}}
+			@if(session('status'))
+				<div class="alert alert-success alert-dismissible fade show">
+					{{session('status')}}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+				
+			@endif
+		
+			{{-- Error Alert --}}
+			@if(session('error'))
+				<div class="alert alert-danger alert-dismissible show fade">
+                    {{session('error')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+			@endif
+			
+			@if ($errors->any())
+				<div class="alert alert-danger alert-dismissible show fade">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			@endif
+			
 			@yield('page-content')
 		</div>
 		

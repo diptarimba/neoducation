@@ -39,8 +39,8 @@
 						</div>
 					@endif
 					
+					<x-input field="uniqueeid" readonly name="Kode Unik Tentor" value="{{$tentor->uniqueid}}" type="text"/>
 					<x-input field="username" readonly name="Username" value="{{$tentor->username}}" type="text"/>
-					<x-input field="password" readonly name="Password" value="{{$tentor->password}}" type="password"/>
 					<x-input field="name" readonly name="Nama Lengkap" value="{{$tentor->name}}" type="text"/>
 					<x-input field="email" readonly name="Email" value="{{$tentor->email}}" type="text"/>
 					<x-input field="address" readonly name="Alamat" value="{{$tentor->address}}" type="text"/>
@@ -48,14 +48,24 @@
 					<x-input field="nohp" readonly name="Nomer HP (Whatsapp)" value="{{$tentor->phone}}" type="text" />
 					
 					<div class="row justify-content-center">
-						<a href="/managetentor/{{$tentor->id}}/edit" class="col-3 ms-1 me-1 btn btn-outline-primary">Edit</a>
-						<div class="col-3">
-							<form method="POST" action="/managetentor/{{$tentor->id}}">
-								@csrf
-								@method('DELETE')
-								<button type="submit" class="ms-1 me-1 btn btn-outline-danger">Hapus</button>
-							</form>
-						</div>
+						<a type="button" href="/managetentor/{{$tentor->id}}/edit" class="col-2 ms-1 me-1 btn btn-outline-primary">Edit</a>
+						<a type="button" href="/managetentor/{{$tentor->id}}/result" class="col-2 ms-1 me-1 btn btn-outline-secondary">Hasil Quiz</a>
+						<button id="hapusen" type="button" class="col-2 ms-1 me-1 btn btn-outline-danger">Hapus</button>
+						<button id="reseten" type="button" class="col-4 ms-1 me-1 btn btn-outline-success">Reset Pass</button>
+					</div>
+					
+					<div class="col-3">
+						<form method="POST" action="/managetentor/{{$tentor->id}}" name="hapus">
+							@csrf
+							@method('DELETE')
+						</form>
+					</div>
+					
+					<div class="col-4">
+						<form method="POST" action="/managetentor/{{$tentor->id}}/respass" name="resetpass">
+							@csrf
+							@method('PUT')
+						</form>
 					</div>
             </div>
         </div>
@@ -71,6 +81,20 @@
 	@section('footer-custom')
 	<script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
     <script>
+	$(document).ready(() => {
+		
+		
+		$('#hapusen').on('click', function(e) {
+			document.forms['hapus'].submit();
+		})
+		
+		$('#reseten').on('click', function(e) {
+			document.forms['resetpass'].submit();
+		})
+		
+		
+	
+	})
         // Simple Datatable
         let daftartentor = document.querySelector('#daftartentor');
         let dataTable = new simpleDatatables.DataTable(daftartentor);

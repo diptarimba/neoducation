@@ -29,23 +29,27 @@
 	@endsection
 	
 	@section('page-content')
-	<section class="section">
+	<section class="section" id="invoiceses">
 	<div class="row">
+		<div class="card mb-3">
+		<div class="row g-0">
+			<div class="col-4 mt-3 mb-3 ms-4" style="max-width: 125px;">
+			<img src="{{ asset('assets/images/logo/logo_rounded.jpg')}}" class="img-fluid rounded-start" alt="...">
+			</div>
+			<div class="col-8">
+			<div class="card-body me-5">
+				<h3 class="text-center text-black me-1">Neoducationz</h3>
+				<p class="card-text text-center me-1"><strong>Jl. Kutoarjo No.78, Kuwarisan, RT 1 RW 11, <br/>Panjer, Kebumen<br/>Email: neoducationz@gmail.com, Telepon (0822)20682472</strong></p>
+			</div>
+			</div>
+		</div>
+		</div>
 		<div class="card">
 			<div class="card-header">
-				<h4 class="text-center">Print Invoice Ananda {{$siswa->name}}</h4>
+				<p class="text-center h4 text-black">Invoice Pembayaran</p>
 			</div>
 			<div class="card-body">
-				<table class="table table-borderless">
-				<tbody class="siapprint">
-					<tr>
-						<td class="text-center" colspan="4">Neoducationz</td>
-					</tr>
-					<tr>
-						<td class="text-center" colspan="4">Living for Learning</td>
-					</tr>
-				<tbody>
-				</table>
+				<p class="card-text">Siswa : {{$siswa->name}}<br/>Paket : {{ucwords($siswa->package)}}</p>
 			</div>
 		</div>
         <div class="card">
@@ -79,7 +83,7 @@
 							@foreach($eachs as $each)
 							<tr>
 								<td>{{$no}}</td>
-								<td>Topik : {{$each->topic}}<br/>Mata Pelajaran : {{$each->mapel}}<br/></td>
+								<td>Topik : {{$each->topic}}<br/>Mata Pelajaran : {{$each->mapel}}<br/>Nama Tentor : {{$each->name_tentors}}</td>
 								<td>{{$each->date_exec}}<br/></td>
 							<td>Rp. 30.000</td>
 							</tr>
@@ -94,10 +98,9 @@
 				</table>
             </div>
         </div>
-		<div class="container col-3 ">
+		<div class="container col-3 containerbutton">
 		<div class="row justify-content-end">
 		<div class="card ">
-			
 				<button class="btn btn-primary btnprint col-md">Print Invoice</button>
 		</div>
 		</div>
@@ -107,42 +110,57 @@
 	@endsection
 	
 	@section('header-custom')
+	
 	@endsection
 	
 	@section('footer-custom')
+		<script src="{{ asset('assets/js/extensions/jQuery.print.min.js') }}"></script>
 		<script>
 			$(document).ready(() => {
 				console.log($('.siapprint'));
 				$('.btnprint').on('click', function(){
 					
+					$('.containerbutton').hide();
 					
-					
-					var sTable = $('.siapprint')[0].innerHTML;
-					console.log(sTable);
-					var rTable = $('.siapprint')[1].innerHTML;
-					console.log(rTable);
+					$("#invoiceses").print({
 
-					var style = "<style>";
-					style = style + "table {width: 100%;font: 17px Calibri;}";
-					style = style + "table, th, td {border: solid 1px #fff; border-collapse: collapse;";
-					style = style + "padding: 2px 3px;text-align: center;}";
-					style = style + "</style>";
+					// Use Global styles
+					globalStyles : false, 
 					
-					var win = window.open('', '', 'height=700,width=700');
-
-					win.document.write('<html><head>');
-					win.document.write('<title>Profile</title>');   // <title> FOR PDF HEADER.
-					win.document.write(style);  
-					win.document.write('</head>');
-					win.document.write('<body><table><thead>');
-					win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
-					win.document.write('</thead><tbody>')
-					win.document.write(rTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
-					win.document.write('</tbody></table></body></html>');
-				
-					win.document.close(); 	// CLOSE THE CURRENT WINDOW.
-				
-					win.print();    // PRINT THE CONTENTS.
+					// Add link with attrbute media=print
+					mediaPrint : false, 
+					
+					//Custom stylesheet
+					stylesheet : "{{ asset('assets/css/bootstrap.css') }}", 
+					
+					//Print in a hidden iframe
+					iframe : false, 
+					
+					// Don't print this
+					noPrintSelector : ".avoid-this",
+					
+					// Add this on top
+					//append : "Free jQuery Plugins<br/>", 
+					
+					// Add this at bottom
+					//prepend : "<br/>jQueryScript.net",
+					
+					// Manually add form values
+					manuallyCopyFormValues: true,
+					
+					// resolves after print and restructure the code for better maintainability
+					deferred: $.Deferred(),
+					
+					// timeout
+					timeout: 250,
+					
+					// Custom title
+					title: "Invoice {{$siswa->name}}",
+					
+					// Custom document type
+					doctype: '<!doctype html>'
+					
+					});
 				})
 			})
 		</script>

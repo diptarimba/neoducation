@@ -28,7 +28,13 @@
 			<li class="sidebar-item <?php echo e(Request::is('tentor/laporan') ? 'active' : ''); ?>">
                <a href="<?php echo e(url('tentor/laporan')); ?>" class='sidebar-link'>
                <i class="bi bi-grid-fill"></i>
-               <span>Laporan Resensi</span>
+               <span>Laporan Presensi</span>
+               </a>
+            </li>
+			<li class="sidebar-item">
+               <a href="<?php echo e(url('logout')); ?>" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Logout</span>
                </a>
             </li>
          </ul>

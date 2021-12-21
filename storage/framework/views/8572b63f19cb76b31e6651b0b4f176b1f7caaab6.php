@@ -9,6 +9,8 @@
 <?php echo $__env->renderComponent(); ?>
 	<?php $__env->stopSection(); ?>
 	
+	<?php $__env->startSection('tab-title', 'Manage Level'); ?>
+	
 	<?php $__env->startSection('page-title'); ?>
 	 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.title','data' => ['heading' => 'Manage Level Tentor','subheading' => 'Manage Level Tentor','url' => '/admin']]); ?>

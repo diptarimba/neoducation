@@ -36,12 +36,19 @@
 					@endif
 					
 					<x-input field="username" name="Username" value="{{$siswa->username}}" type="text"/>
-					<x-input field="password" name="Password" value="{{$siswa->password}}" type="password"/>
 					<x-input field="name" name="Nama Lengkap" value="{{$siswa->name}}" type="text"/>
 					<x-input field="parentName" name="Nama Orang Tua" value="{{$siswa->parent_name}}" type="text"/>
 					<x-input field="email" name="Email" value="{{$siswa->email}}" type="text"/>
 					<x-input field="address" name="Alamat" value="{{$siswa->address}}" type="text"/>
-					<x-input field="package" name="Paket Bimbingan" value="{{$siswa->package}}" type="text"/>
+					<div class="mb-3">
+					<label class="form-label" for="package">Pilih Paket Siswa</label>
+					<select class="form-select" name="package" aria-label="Default package">
+						<option selected>Paket</option>
+						@foreach($package as $each)
+							<option value="{{$each->package_name}}">{{$each->package_name}}</option>
+						@endforeach
+					</select>
+					</div>
 					<x-input field="phone" name="Nomer HP (Whatsapp)" value="{{$siswa->phone}}" type="text" />
 					
 					<div class="row">

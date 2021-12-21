@@ -49,6 +49,7 @@
                             <th>Peserta</th>
                             <th>Tentor</th>
                             <th>Waktu</th>
+                            <th>Pembayaran</th>
                             <th>Biaya</th>
                         </tr>
                     </thead>
@@ -62,7 +63,8 @@
                            <td>{{$each -> students }}</td>
                            <td>{{$each -> tentors}}</td>
                            <td>{{$each -> date_exec}}</td>
-                           <td>Rp. 30.000</td>
+                           <td>{{($each -> status_bayar !== 'unpaid') ? 'Telah Dibayar' : 'Belum Dibayar'}}</td>
+                           <td>Rp. {{number_format($each -> biaya, 0, ",", ".")}}</td>
                         </tr>
 					@endforeach
                     </tbody>
@@ -73,7 +75,7 @@
 		<div class="col-md-6 col-12">
 		<div class="card">
 			<div class="card-body">
-				<p>Total Biaya : <span class="h5"> Rp. {{number_format(count($datahadir) * 30000, 0, ",", ".")}}</span>
+				<p>Total Biaya : <span class="h5"> Rp. {{number_format($total, 0, ",", ".")}}</span>
 			</div>
 		</div>
 		</div>

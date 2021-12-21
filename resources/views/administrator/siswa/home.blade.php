@@ -1,8 +1,6 @@
 	@extends('layout.page')
 
-	@section('tab-title')
-		Manage Siswa
-	@endsection
+	@section('tab-title','Manajemen Siswa ND')
 	
 	@section('sidebar')
 		@component('components.adminSidebar')
@@ -10,7 +8,7 @@
 	@endsection
 	
 	@section('page-title')
-	<x-title heading="Manage Siswa" subheading="Manage Siswa" url="/admin" />
+	<x-title heading="Manajemen Siswa ND" subheading="Manajemen Siswa ND" url="/admin" />
 	@endsection
 	
 	@section('page-content')

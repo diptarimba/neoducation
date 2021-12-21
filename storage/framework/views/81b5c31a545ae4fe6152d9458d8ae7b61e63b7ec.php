@@ -41,15 +41,14 @@
                     <div class="card-header">
                         <h5>Data Diri</h5>
                     </div>
-					<div class="card-body">
-					<div class="col-8 mx-auto mt-2 mt-2">
-					<img src="<?php echo e(asset('assets/images/tentor/photo-1.png')); ?>" class="card-img-top img-fluid"
+					<div class="card-body" style="width: 100%;">
+					<div class="col-8 mx-auto mt-2 mt-2" style="width: 40%;">
+					<img src="<?php echo e(asset('assets/images/siswa/' . $siswa->pict_name)); ?>" class="card-img-top img-fluid"
                                         alt="singleminded">
 					</div>
-					<form action='/siswa/<?php echo e($siswa->id); ?>' method="POST">
+					<form action='/siswa/<?php echo e($siswa->id); ?>' method="POST" enctype="multipart/form-data">
 					<?php echo csrf_field(); ?>
 					<?php echo method_field("PUT"); ?>
-					
 					 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'NamaPaket','name' => 'Nama Paket','value' => ''.e($siswa->package).'','readonly' => '','type' => 'text']]); ?>
 <?php $component->withName('input'); ?>
@@ -122,6 +121,10 @@
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
+					<div class="mb-3">
+                        <label for="formFile" class="form-label">Masukan Foto Profilmu Disini!</label>
+                        <input name="pictProfile" class="form-control" value="<?php echo e(asset('assets/images/siswa/' . $siswa->pict_name)); ?>" type="file" id="formFile">
+                    </div>
 					<!--
 					 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'NoHP','name' => 'Nomer HP (Whatsapp)','type' => 'text']]); ?>
@@ -138,7 +141,7 @@
 					
 					-->
 					
-						<button type="submit" class="btn btn-outline-success">Update!</button>
+						<button type="submit" class="btn btn-outline-success">Perbaharui Data!</button>
 					</form>
 					</div>
 					</div>

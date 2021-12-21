@@ -35,13 +35,20 @@
 						</div>
 					@endif
 					
+					<x-input field="uniqueid" name="Kode Unik Tentor" value="{{$tentor->uniqueid}}" type="text"/>
 					<x-input field="username" name="Username" value="{{$tentor->username}}" type="text"/>
-					<x-input field="password" name="Password" value="{{$tentor->password}}" type="password"/>
 					<x-input field="name" name="Nama Lengkap" value="{{$tentor->name}}" type="text"/>
 					<x-input field="parentName" name="Nama Orang Tua" value="{{$tentor->name}}" type="text"/>
 					<x-input field="email" name="Email" value="{{$tentor->email}}" type="text"/>
 					<x-input field="address" name="Alamat" value="{{$tentor->address}}" type="text"/>
+					<!--
 					<x-input field="package" name="Paket Bimbingan" value="{{$tentor->mapel}}" type="text"/>
+					-->
+					<select id="tentor" class="form-select choices mb-3" name="mapel" aria-label="Default mapel">
+						@foreach($mapel as $each)
+							<option value="{{$each->name_mapel}}" {{($tentor->mapel !== '') ? '' : (($tentor->mapel == $each->name_mapel) ? 'selected' : '')}}>{{$each->name_mapel}}</option>
+						@endforeach
+					</select>
 					<x-input field="phone" name="Nomer HP (Whatsapp)" value="{{$tentor->phone}}" type="text" />
 					
 					<div class="row">
@@ -57,9 +64,14 @@
 	
 	@section('header-custom')
 	<link rel="stylesheet" href="{{ asset('assets/vendors/simple-datatables/style.css') }}">
+	<!-- Include Choices CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/choices.js/choices.min.css') }}" />
 	@endsection
 	
 	@section('footer-custom')
+	<!-- Include Choices JavaScript -->
+    <script src="{{ asset('assets/vendors/choices.js/choices.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/form-element-select.js') }}"></script>
 	<script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
     <script>
         // Simple Datatable

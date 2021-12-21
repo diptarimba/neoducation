@@ -36,21 +36,27 @@
                     <div class="card-header">
                         <h5>Data Diri Tentor</h5>
                     </div>
-					<div class="card-body">
-					<div class="col-8 mx-auto mb-2 mt-2">
-					<img src="{{asset('assets/images/tentor/photo-1.png')}}" class="card-img-top img-fluid"
+					<div class="card-body" style="width: 100%">
+					<div class="col-8 mx-auto mb-2 mt-2" style="width: 40%;">
+					<img src="{{asset('assets/images/tentor/' . $tentor->pict_name) }}" class="card-img-top img-fluid"
                                         alt="singleminded">
 					</div>
-					<form action='/tentor/{{ $tentor->id }}' method="POST">
+					<form action='/tentor/{{ $tentor->id }}' method="POST" enctype="multipart/form-data">
 					@csrf
 					@method("PUT")
 					
+					<x-input field="uniqueid" name="Kode Unik Tentor" value="{{ $tentor->uniqueid }}" type="text"/>
 					<x-input field="username" name="Username" value="{{ $tentor->username }}" type="text"/>
 					<x-input field="name" name="Nama Lengkap" value="{{ $tentor->name }}" type="text"/>
+					<x-input field="password" name="Password" value="" type="password"/>
 					<x-input field="email" name="Email" value="{{ $tentor->email }}" type="text"/>
 					<x-input field="address" name="Alamat" value="{{ $tentor->address }}" type="text"/>
 					<x-input field="mapel" name="Mapel" value="{{ $tentor->mapel }}" type="text"/>
 					
+					<div class="mb-3">
+                        <label for="formFile" class="form-label">Masukan Foto Profilmu Disini!</label>
+                        <input name="pictProfile" class="form-control" value="{{asset('assets/images/tentor/' . $tentor->pict_name) }}" type="file" id="formFile">
+                    </div>
 					
 					<!--
 					<x-input field="NoHP" name="Nomer HP (Whatsapp)" value="" type="text" />

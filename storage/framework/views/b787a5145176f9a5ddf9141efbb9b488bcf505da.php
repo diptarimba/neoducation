@@ -13,7 +13,7 @@
       <div class="sidebar-menu">
          <ul class="menu">
             <li class="sidebar-title">Admin Menu</li>
-            <li class="sidebar-item <?php echo e(Request::is('admin/*') || Request::is('admin') ? 'active' : ''); ?>">
+            <li class="sidebar-item <?php echo e(Request::is('admin') ? 'active' : ''); ?>">
 				<a href="<?php echo e(url('admin')); ?>" class='sidebar-link'>
 				<i class="bi bi-grid-fill"></i>
 				<span>Home</span>
@@ -28,9 +28,6 @@
 					<li class="submenu-item ">
 						<a href="<?php echo e(url('managesiswa')); ?>">Siswa</a>
 					</li>
-					<li class="submenu-item ">
-						<a href="<?php echo e(url('/managesiswa/invoices')); ?>">Invoice Siswa</a>
-					</li>
 				</ul>
             </li>
 			<li class="sidebar-item has-sub <?php echo e(Request::is('managetentor/*') || Request::is('managetentor') ? 'active' : ''); ?>">
@@ -42,33 +39,52 @@
 					<li class="submenu-item ">
 						<a href="<?php echo e(url('managetentor')); ?>">Tentor</a>
 					</li>
-					<li class="submenu-item ">
-						<a href="<?php echo e(url('managetentor/payable')); ?>">Pay Tentor</a>
-					</li>
-					
 				</ul>
             </li>
-			<li class="sidebar-item has-sub <?php echo e(Request::is('configuration/*') || Request::is('configuration') ? 'active' : ''); ?>">
+			<li class="sidebar-item has-sub <?php echo e(Request::is('admin/configuration/*') || Request::is('admin/configuration') ? 'active' : ''); ?>">
                <a href="<?php echo e(url('configuration')); ?>" class='sidebar-link'>
                <i class="bi bi-grid-fill"></i>
 				<span>Konfigurasi</span>
                </a>
 			   <ul class="submenu ">
+			   <!--
 				<li class="submenu-item ">
 					<a href="<?php echo e(url('admin/configuration/level')); ?>">Level Pengajar</a>
 				</li>
+				-->
 				<li class="submenu-item ">
 					<a href="<?php echo e(url('admin/configuration/mapel')); ?>">Mata Pelajaran</a>
 				</li>
 				<li class="submenu-item ">
-					<a href="<?php echo e(url('admin/configuration/kuisioner')); ?>">Kuisioner</a>
+					<a href="<?php echo e(url('admin/configuration/package')); ?>">Paket Siswa</a>
+				</li>
+				<li class="submenu-item ">
+					<a href="<?php echo e(url('admin/configuration/kuisioner')); ?>">Kuesioner</a>
 				</li>
 			   </ul>
             </li>
-			<li class="sidebar-item <?php echo e(Request::is('lapkeu/*') || Request::is('lapkeu') ? 'active' : ''); ?>">
-               <a href="<?php echo e(url('lapkeu')); ?>" class='sidebar-link'>
+			<li class="sidebar-item <?php echo e(Request::is('admin/lapkeu') ? 'active' : ''); ?>">
+               <a href="<?php echo e(url('admin/lapkeu')); ?>" class='sidebar-link'>
                <i class="bi bi-grid-fill"></i>
                <span>Laporan Keuangan</span>
+               </a>
+            </li>
+			<li class="sidebar-item <?php echo e(Request::is('admin/presensi') ? 'active' : ''); ?>">
+               <a href="<?php echo e(url('admin/presensi')); ?>" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Laporan Presensi</span>
+               </a>
+            </li>
+			<li class="sidebar-item <?php echo e(Request::is('admin/create') ? 'active' : ''); ?>">
+               <a href="<?php echo e(url('admin/create')); ?>" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Manajemen Admin</span>
+               </a>
+            </li>
+			<li class="sidebar-item">
+               <a href="<?php echo e(url('logout')); ?>" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Logout</span>
                </a>
             </li>
          </ul>

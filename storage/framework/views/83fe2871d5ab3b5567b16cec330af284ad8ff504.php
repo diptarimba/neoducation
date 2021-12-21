@@ -12,7 +12,7 @@
       </div>
       <div class="sidebar-menu">
          <ul class="menu">
-            <li class="sidebar-title">User Menu</li>
+            <li class="sidebar-title">Menu Siswa</li>
             <li class="sidebar-item <?php echo e(Request::is('siswa/*/edit') || Request::is('siswa') ? 'active' : ''); ?>">
                <a href="<?php echo e(url('siswa')); ?>" class='sidebar-link'>
                <i class="bi bi-grid-fill"></i>
@@ -22,7 +22,25 @@
 			<li class="sidebar-item <?php echo e(Request::is('siswa/invoice') ? 'active' : ''); ?>">
                <a href="<?php echo e(url('siswa/invoice')); ?>" class='sidebar-link'>
                <i class="bi bi-grid-fill"></i>
-               <span>Invoice</span>
+               <span>Tagihan</span>
+               </a>
+            </li>
+			<li class="sidebar-item <?php echo e(Request::is('siswa/quizresult') ? 'active' : ''); ?>">
+               <a href="<?php echo e(url('siswa/quizresult')); ?>" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Hasil Kuesioner</span>
+               </a>
+            </li>
+			<li class="sidebar-item <?php echo e(Request::is('siswa/quiz') ? 'active' : ''); ?>">
+               <a href="<?php echo e(url('siswa/quiz')); ?>" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Quiz</span>
+               </a>
+            </li>
+			<li class="sidebar-item">
+               <a href="<?php echo e(url('logout')); ?>" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Logout</span>
                </a>
             </li>
          </ul>

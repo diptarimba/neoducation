@@ -5,6 +5,8 @@
 		@endcomponent
 	@endsection
 	
+	@section('tab-title', 'Manage Level')
+	
 	@section('page-title')
 	<x-title heading="Manage Level Tentor" subheading="Manage Level Tentor" url="/admin" />
 	@endsection

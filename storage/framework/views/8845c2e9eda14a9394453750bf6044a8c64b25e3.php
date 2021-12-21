@@ -53,6 +53,7 @@
                             <th>Peserta</th>
                             <th>Tentor</th>
                             <th>Waktu</th>
+                            <th>Pembayaran</th>
                             <th>Biaya</th>
                         </tr>
                     </thead>
@@ -66,7 +67,8 @@
                            <td><?php echo e($each -> students); ?></td>
                            <td><?php echo e($each -> tentors); ?></td>
                            <td><?php echo e($each -> date_exec); ?></td>
-                           <td>Rp. 30.000</td>
+                           <td><?php echo e(($each -> status_bayar !== 'unpaid') ? 'Telah Dibayar' : 'Belum Dibayar'); ?></td>
+                           <td>Rp. <?php echo e(number_format($each -> biaya, 0, ",", ".")); ?></td>
                         </tr>
 					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
@@ -77,7 +79,7 @@
 		<div class="col-md-6 col-12">
 		<div class="card">
 			<div class="card-body">
-				<p>Total Biaya : <span class="h5"> Rp. <?php echo e(number_format(count($datahadir) * 30000, 0, ",", ".")); ?></span>
+				<p>Total Biaya : <span class="h5"> Rp. <?php echo e(number_format($total, 0, ",", ".")); ?></span>
 			</div>
 		</div>
 		</div>

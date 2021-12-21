@@ -20,10 +20,14 @@ class CreateReportusersTable extends Migration
 			$table->string('mapel');
 			$table->string('hash');
 			$table->string('students');
-			$table->string('tentors');
+			$table->unsignedbigInteger('tentors');
+			$table->string('name_tentors');
+			$table->integer('biaya');
 			$table->string('status_bayar');
 			$table->timestamp('date_exec')->nullable();
             $table->timestamps();
+			
+			//$table->foreign('tentors')->references('id')->on('tentors');
         });
     }
 

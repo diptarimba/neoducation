@@ -55,11 +55,11 @@
 					<?php endif; ?>
 					
 					 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'username','readonly' => true,'name' => 'Username','value' => ''.e($tentor->username).'','type' => 'text']]); ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'uniqueeid','readonly' => true,'name' => 'Kode Unik Tentor','value' => ''.e($tentor->uniqueid).'','type' => 'text']]); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['field' => 'username','readonly' => true,'name' => 'Username','value' => ''.e($tentor->username).'','type' => 'text']); ?>
+<?php $component->withAttributes(['field' => 'uniqueeid','readonly' => true,'name' => 'Kode Unik Tentor','value' => ''.e($tentor->uniqueid).'','type' => 'text']); ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
@@ -67,11 +67,11 @@
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
 					 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'password','readonly' => true,'name' => 'Password','value' => ''.e($tentor->password).'','type' => 'password']]); ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.input','data' => ['field' => 'username','readonly' => true,'name' => 'Username','value' => ''.e($tentor->username).'','type' => 'text']]); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['field' => 'password','readonly' => true,'name' => 'Password','value' => ''.e($tentor->password).'','type' => 'password']); ?>
+<?php $component->withAttributes(['field' => 'username','readonly' => true,'name' => 'Username','value' => ''.e($tentor->username).'','type' => 'text']); ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
@@ -140,14 +140,24 @@
 <?php endif; ?> 
 					
 					<div class="row justify-content-center">
-						<a href="/managetentor/<?php echo e($tentor->id); ?>/edit" class="col-3 ms-1 me-1 btn btn-outline-primary">Edit</a>
-						<div class="col-3">
-							<form method="POST" action="/managetentor/<?php echo e($tentor->id); ?>">
-								<?php echo csrf_field(); ?>
-								<?php echo method_field('DELETE'); ?>
-								<button type="submit" class="ms-1 me-1 btn btn-outline-danger">Hapus</button>
-							</form>
-						</div>
+						<a type="button" href="/managetentor/<?php echo e($tentor->id); ?>/edit" class="col-2 ms-1 me-1 btn btn-outline-primary">Edit</a>
+						<a type="button" href="/managetentor/<?php echo e($tentor->id); ?>/result" class="col-2 ms-1 me-1 btn btn-outline-secondary">Hasil Quiz</a>
+						<button id="hapusen" type="button" class="col-2 ms-1 me-1 btn btn-outline-danger">Hapus</button>
+						<button id="reseten" type="button" class="col-4 ms-1 me-1 btn btn-outline-success">Reset Pass</button>
+					</div>
+					
+					<div class="col-3">
+						<form method="POST" action="/managetentor/<?php echo e($tentor->id); ?>" name="hapus">
+							<?php echo csrf_field(); ?>
+							<?php echo method_field('DELETE'); ?>
+						</form>
+					</div>
+					
+					<div class="col-4">
+						<form method="POST" action="/managetentor/<?php echo e($tentor->id); ?>" name="resetpass">
+							<?php echo csrf_field(); ?>
+							<?php echo method_field('PUT'); ?>
+						</form>
 					</div>
             </div>
         </div>
@@ -163,6 +173,20 @@
 	<?php $__env->startSection('footer-custom'); ?>
 	<script src="<?php echo e(asset('assets/vendors/simple-datatables/simple-datatables.js')); ?>"></script>
     <script>
+	$(document).ready(() => {
+		
+		
+		$('#hapusen').on('click', function(e) {
+			document.forms['hapus'].submit();
+		})
+		
+		$('#reseten').on('click', function(e) {
+			document.forms['resetpass'].submit();
+		})
+		
+		
+	
+	})
         // Simple Datatable
         let daftartentor = document.querySelector('#daftartentor');
         let dataTable = new simpleDatatables.DataTable(daftartentor);

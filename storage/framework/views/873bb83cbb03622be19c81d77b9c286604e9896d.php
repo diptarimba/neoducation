@@ -44,7 +44,7 @@
 			</p>
             </div>
             <div class="card-body">
-			<form action="/admin/siswa/invoice/<?php echo e($siswa->id); ?>" method="post">
+			<form id="formpost" action="/admin/siswa/invoice/<?php echo e($siswa->id); ?>" method="post">
 			<?php echo csrf_field(); ?>
                 <table class="table table-striped" id="table1">
                     <thead>
@@ -56,8 +56,9 @@
                             <th>Mapel</th>
                             <th>Peserta</th>
                             <th>Tentor</th>
-                            <th>Waktu</th>
 							<th>Status Bayar</th>
+                            <th>Waktu</th>
+							
                             <th>Biaya</th>
                         </tr>
                     </thead>
@@ -78,7 +79,10 @@
 					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
-				<button type="submit" class="btn btn-primary">Print</button>
+				<div class="row justify-content-center mt-1">
+				<button type="submit" name="action" value="print" class="col-md-2 mx-1 my-1 btn btn-outline-primary">Print</button>
+				<button type="submit" name="action" value="paid" class="col-md-2 mx-1 my-1 btn btn-outline-danger">Sudah Dibayar</button>
+				</div>
 			</form>
             </div>
         </div>
@@ -94,9 +98,13 @@
 	<?php $__env->startSection('footer-custom'); ?>
 	<script src="<?php echo e(asset('assets/vendors/simple-datatables/simple-datatables.js')); ?>"></script>
     <script>
-        // Simple Datatable
+	$(document).ready(() =>{
+		
+		// Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
+		
+	})   
     </script>
 	<?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.page', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Kumpulan Project Dipta\Neoducationz\neoducationz-project\resources\views/administrator/siswa/invoice.blade.php ENDPATH**/ ?>

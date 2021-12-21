@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Students;
 use App\Models\Reportusers;
+use App\Models\Packages;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -28,7 +29,8 @@ class ManageSiswaController extends Controller
      */
     public function create()
     {
-        return view('administrator.siswa.tambah');
+		$package = Packages::all();
+        return view('administrator.siswa.tambah', compact('package'));
     }
 
     /**
@@ -39,22 +41,21 @@ class ManageSiswaController extends Controller
      */
     public function store(Request $request)
     {
+		//dd($request);
+		
         $validate = $request->validate([
 			'username' => 'required|min:5',
 			'password' => 'required|min:8',
 			'name' => 'required',
-			'parentName' => 'required',
-			'email' => 'required',
-			'address' => 'required',
 			'package' => 'required',
-			'phone' => 'required|min:10'
 		]);
 		
 		$siswa = new Students;
 		$siswa->username = $request->username;
-		$siswa->password = $request->password;
+		$siswa->password = bcrypt($request->password);
 		$siswa->email = $request->email;
 		$siswa->name = $request->name;
+		$siswa->pict_name = 'default.jpg';
 		$siswa->parent_name = $request->parentName;
 		$siswa->address = $request->address;
 		$siswa->phone = $request->phone;
@@ -85,7 +86,8 @@ class ManageSiswaController extends Controller
     public function edit($id)
     {
         $siswa = Students::find($id);
-		return view('administrator.siswa.update', compact('siswa'));
+        $package = Packages::all();
+		return view('administrator.siswa.update', compact('siswa', 'package'));
     }
 
     /**
@@ -99,24 +101,18 @@ class ManageSiswaController extends Controller
     {
          $validate = $request->validate([
 			'username' => 'required|min:5',
-			'password' => 'required|min:8',
 			'name' => 'required',
-			'parentName' => 'required',
-			'email' => 'required',
-			'address' => 'required',
-			'package' => 'required',
-			'phone' => 'required|min:10'
 		]);
 		
 		$siswa = Students::find($id);
-		$siswa->username = $request->username;
-		$siswa->password = $request->password;
-		$siswa->email = $request->email;
-		$siswa->name = $request->name;
-		$siswa->parent_name = $request->parentName;
-		$siswa->address = $request->address;
-		$siswa->phone = $request->phone;
-		$siswa->package = $request->package;
+		$siswa->username = $request->username ?? $siswa-> username;
+		$siswa->password = (!empty($request->password)) ? bcrypt($request->password) : $siswa-> password;
+		$siswa->email = $request->email ?? $siswa-> email;
+		$siswa->name = $request->name ?? $siswa-> name;
+		$siswa->parent_name = $request->parentName ?? $siswa-> parent_name;
+		$siswa->address = $request->address ?? $siswa-> address;
+		$siswa->phone = $request->phone ?? $siswa-> phone;
+		$siswa->package = $request->package ?? $siswa-> package;
 		$siswa->save();
 		
 		return redirect('/managesiswa/'.$id);
@@ -144,13 +140,31 @@ class ManageSiswaController extends Controller
 	}
 	
 	public function printinvoice(Request $request, $id)
-	{
-		
-		$siswa = Students::find($id);
-		$dataInvoice = [];
-		foreach($request->hash as $each){
-			$dataInvoice[] = Reportusers::where('hash', $each)->get();
+	{	
+		switch($request->action){
+			case 'print':
+				$siswa = Students::find($id);
+				$dataInvoice = [];
+				foreach($request->hash as $each){
+					$dataInvoice[] = Reportusers::where('hash', $each)->where('students', $id)->get();
+				}
+					return view('administrator.siswa.printinvoice', compact(['dataInvoice', 'siswa']));
+			break;
+			case 'paid':
+				foreach($request->hash as $each){
+					Reportusers::where('hash', $each)->where('students', $id)->update(['status_bayar' => 'paid']);
+				}
+					return redirect('/admin/siswa/invoice/' . $id);
+			break;
 		}
-		return view('administrator.siswa.printinvoice', compact(['dataInvoice', 'siswa']));
+	}
+	
+	public function resetpass($id)
+	{
+		$siswa = Students::find($id);
+		$siswa->password = bcrypt('12345678');
+		$siswa->save();
+		
+		return redirect('/managesiswa/'.$id)->with('status', 'Passsowrd Berhasil di Reset');
 	}
 }

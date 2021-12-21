@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tentors;
+use App\Models\Mapels;
+use App\Models\Quiztentors;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -29,7 +31,8 @@ class ManageTentorController extends Controller
      */
     public function create()
     {
-        return view('administrator.tentor.tambah');
+		$mapel = Mapels::all();
+        return view('administrator.tentor.tambah', compact('mapel'));
     }
 
     /**
@@ -44,17 +47,16 @@ class ManageTentorController extends Controller
 			'username' => 'required|min:5',
 			'password' => 'required|min:8',
 			'name' => 'required',
-			'email' => 'required',
-			'address' => 'required',
 			'mapel' => 'required',
-			'nohp' => 'required|min:10'
 		]);
 		
 		$tentor = new Tentors;
+		$tentor->uniqueid = $request->uniqueid;
 		$tentor->name = $request->name;
 		$tentor->username = $request->username;
-		$tentor->password = $request->password;
+		$tentor->password = bcrypt($request->password);
 		$tentor->email = $request->email;
+		$tentor->pict_name = 'default.jpg';
 		$tentor->address = $request->address;
 		$tentor->mapel = $request->mapel;
 		$tentor->phone = $request->nohp;
@@ -84,7 +86,8 @@ class ManageTentorController extends Controller
     public function edit($id)
     {
         $tentor = Tentors::find($id);
-		return view('administrator.tentor.update', compact('tentor'));
+		$mapel = Mapels::all();
+		return view('administrator.tentor.update', compact('tentor','mapel'));
     }
 
     /**
@@ -98,22 +101,18 @@ class ManageTentorController extends Controller
     {
 		$validate = $request->validate([
 			'username' => 'required|min:5',
-			'password' => 'required|min:8',
 			'name' => 'required',
-			'email' => 'required',
-			'address' => 'required',
-			'mapel' => 'required',
-			'nohp' => 'required|min:10'
 		]);
 		
         $tentor = Tentors::find($id);
-		$tentor->name = $request->name;
-		$tentor->username = $request->username;
-		$tentor->password = $request->password;
-		$tentor->email = $request->email;
-		$tentor->address = $request->address;
-		$tentor->mapel = $request->mapel;
-		$tentor->phone = $request->nohp;
+		$tentor->uniqueid = $request->uniqueid ?? $tentor-> uniqueid;
+		$tentor->name = $request->name ?? $tentor-> name;
+		$tentor->username = $request->username ?? $tentor-> username;
+		$tentor->password = bcrypt($request->password) ?? $tentor-> password;
+		$tentor->email = $request->email ?? $tentor-> email;
+		$tentor->address = $request->address ?? $tentor-> address;
+		$tentor->mapel = $request->mapel ?? $tentor-> mapel;
+		$tentor->phone = $request->phone ?? $tentor-> phone;
 		$tentor->save();
 		
 		return redirect('/managetentor/'.$id);
@@ -130,4 +129,32 @@ class ManageTentorController extends Controller
         Tentors::find($id)->delete();
 		return redirect('/managetentor');
     }
+	
+	public function resetpass($id)
+	{
+		$tentor = Tentors::find($id);
+		$tentor->password = bcrypt('12345678');
+		$tentor->save();
+		return redirect('/managetentor/'.$id)->with('status', 'Passsowrd Berhasil di Reset');
+	}
+	
+	public function tentorquiz($id)
+	{
+		// dd($id);
+		// $row = Quiztentors::where('tentor_id', $id)->get();
+		$data = Tentors::resultquiz($id);
+		$ask = ["",
+		"Tentor hadir sesuai kesepakatan",
+		"Tentor komunikatif",
+		"Tentor berpenampilan rapi",
+		"Penjelasan Tentor mudah dipahami",
+		"Tentor bisa menjadi teladan bagi siswa",
+		"Tentor bisa menjelaskan materi",
+		"Tentor bisa membantu menyelesaikan PR",
+		"Tentor mampu memotivasi siswa",
+		"Tentor mampu mendukung prestasi siswa? "
+		];
+		// dd($data);
+		return view('administrator.tentor.kuisioner', compact('data','ask'));
+	}
 }

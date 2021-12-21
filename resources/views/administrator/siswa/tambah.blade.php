@@ -40,7 +40,15 @@
 					<x-input field="parentName" name="Nama Orang Tua" value="" type="text"/>
 					<x-input field="email" name="Email" value="" type="text"/>
 					<x-input field="address" name="Alamat" value="" type="text"/>
-					<x-input field="package" name="Paket Bimbingan" value="" type="text"/>
+					<div class="mb-3">
+					<label class="form-label" for="package">Pilih Paket Siswa</label>
+					<select class="form-select" name="package" aria-label="Default package">
+						<option selected>Paket</option>
+						@foreach($package as $each)
+							<option value="{{$each->package_name}}">{{$each->package_name}}</option>
+						@endforeach
+					</select>
+					</div>
 					<x-input field="phone" name="Nomer HP (Whatsapp)" value="" type="text" />
 					
 					<button type="submit" class="btn btn-outline-primary">Tambah</button>

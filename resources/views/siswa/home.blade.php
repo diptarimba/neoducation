@@ -38,10 +38,9 @@
                     <div class="card-header">
                         <h5>Data Diri</h5>
                     </div>
-                    <div class="card-body">
-					<div class="col-8 mx-auto mb-2 mt-2">
-					<img src="{{asset('assets/images/tentor/photo-1.png')}}" class="card-img-top img-fluid"
-                                        alt="singleminded">
+                    <div class="card-body" style="width: 100%;">
+					<div class="col-8 mx-auto mb-2 mt-2" style="width: 40%;">
+					<img src="{{asset('assets/images/siswa/' . $siswa->pict_name )}}" class="card-img-top img-fluid" alt="singleminded">
 					</div>
 					<table class="table table-borderless">
 					<tr>
@@ -98,7 +97,7 @@
 							<td>{{$each-> hash}}</td>
 							<td>{{$each-> topic}}</td>
 							<td>{{$each-> mapel}}</td>
-							<td><a class="btn btn-primary btn-sm"href="/">Detail</td>
+							<td><a class="btn btn-primary btn-sm"href="/siswa/invoice">Detail</td>
 						</tr>
 						
 						@endforeach

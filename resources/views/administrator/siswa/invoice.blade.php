@@ -24,9 +24,7 @@
     </div>
 	@endsection
 	
-	@section('tab-title')
-		Invoice Siswa
-	@endsection
+	@section('tab-title','Invoice Siswa')
 	
 	@section('page-content')
 	<section class="section">
@@ -40,7 +38,7 @@
 			</p>
             </div>
             <div class="card-body">
-			<form action="/admin/siswa/invoice/{{$siswa->id}}" method="post">
+			<form id="formpost" action="/admin/siswa/invoice/{{$siswa->id}}" method="post">
 			@csrf
                 <table class="table table-striped" id="table1">
                     <thead>
@@ -52,8 +50,9 @@
                             <th>Mapel</th>
                             <th>Peserta</th>
                             <th>Tentor</th>
-                            <th>Waktu</th>
 							<th>Status Bayar</th>
+                            <th>Waktu</th>
+							
                             <th>Biaya</th>
                         </tr>
                     </thead>
@@ -61,20 +60,23 @@
 					@foreach($kehadiran as $each)
                         <tr>
 							<td><input type="checkbox" name="hash[]" value="{{$each -> hash}}"></td>
-							<td>{{$each -> hash}}</td>
-							<td>{{$each -> topic}}</td>
-							<td>{{$each -> place }}</td>
-							<td>{{$each -> mapel }}</td>
-							<td>{{$each -> students }}</td>
-							<td>{{$each -> tentors}}</td>
-							<td>{{$each -> status_bayar}}</td>
-							<td>{{$each -> date_exec}}</td>
+							<td>{{	$each -> hash	}}</td>
+							<td>{{	$each -> topic	}}</td>
+							<td>{{	$each -> place }}</td>
+							<td>{{	$each -> mapel }}</td>
+							<td>{{	$each -> students }}</td>
+							<td>{{	$each -> tentors}}</td>
+							<td>{{	$each -> status_bayar}}</td>
+							<td>{{	$each -> date_exec}}</td>
 							<td>Rp. 30.000</td>
                         </tr>
 					@endforeach
                     </tbody>
                 </table>
-				<button type="submit" class="btn btn-primary">Print</button>
+				<div class="row justify-content-center mt-1">
+				<button type="submit" name="action" value="print" class="col-md-2 mx-1 my-1 btn btn-outline-primary">Print</button>
+				<button type="submit" name="action" value="paid" class="col-md-2 mx-1 my-1 btn btn-outline-danger">Sudah Dibayar</button>
+				</div>
 			</form>
             </div>
         </div>
@@ -90,8 +92,12 @@
 	@section('footer-custom')
 	<script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
     <script>
-        // Simple Datatable
+	$(document).ready(() =>{
+		
+		// Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
+		
+	})   
     </script>
 	@endsection

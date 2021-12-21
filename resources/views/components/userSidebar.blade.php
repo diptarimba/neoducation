@@ -12,7 +12,7 @@
       </div>
       <div class="sidebar-menu">
          <ul class="menu">
-            <li class="sidebar-title">User Menu</li>
+            <li class="sidebar-title">Menu Siswa</li>
             <li class="sidebar-item {{Request::is('siswa/*/edit') || Request::is('siswa') ? 'active' : ''}}">
                <a href="{{url('siswa')}}" class='sidebar-link'>
                <i class="bi bi-grid-fill"></i>
@@ -22,7 +22,25 @@
 			<li class="sidebar-item {{Request::is('siswa/invoice') ? 'active' : ''}}">
                <a href="{{url('siswa/invoice')}}" class='sidebar-link'>
                <i class="bi bi-grid-fill"></i>
-               <span>Invoice</span>
+               <span>Tagihan</span>
+               </a>
+            </li>
+			<li class="sidebar-item {{Request::is('siswa/quizresult') ? 'active' : ''}}">
+               <a href="{{url('siswa/quizresult')}}" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Rapot</span>
+               </a>
+            </li>
+			<li class="sidebar-item {{Request::is('siswa/quiz') ? 'active' : ''}}">
+               <a href="{{url('siswa/quiz')}}" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Quiz</span>
+               </a>
+            </li>
+			<li class="sidebar-item">
+               <a href="{{url('logout')}}" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Logout</span>
                </a>
             </li>
          </ul>

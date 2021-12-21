@@ -1,8 +1,20 @@
 <div class="mb-3">
+	<?php if($type !== 'hidden'): ?>
+		<?php if(isset($name)): ?>
 	<label class="form-label" for="<?php echo e($field); ?>"><?php echo e($name); ?></label>
+		<?php endif; ?>
+	<?php endif; ?>
 	<input type="<?php echo e($type); ?>"
 	<?php if(isset($readonly)): ?>
 		readonly
+	<?php endif; ?>
+	
+	<?php if(isset($required)): ?>
+		required
+	<?php endif; ?>
+	
+	<?php if(isset($placeholder)): ?>
+		placeholder="<?php echo e($placeholder); ?>"
 	<?php endif; ?>
 	
 	<?php if(isset($value)): ?>

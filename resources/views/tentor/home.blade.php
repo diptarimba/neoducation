@@ -38,9 +38,9 @@
                     <div class="card-header">
                         <h5>Data Tentor</h5>
                     </div>
-                    <div class="card-body">
-					<div class="col-8 mx-auto mb-2 mt-2">
-					<img src="{{asset('assets/images/tentor/photo-1.png')}}" class="card-img-top img-fluid"
+                    <div class="card-body" style="width: 100%">
+					<div class="col-8 mx-auto mb-2 mt-2" style="width: 40%;">
+					<img src="{{asset('assets/images/tentor/' . $tentor->pict_name) }}" class="card-img-top img-fluid"
                                         alt="singleminded">
 					</div>
 						<table class="table table-borderless">

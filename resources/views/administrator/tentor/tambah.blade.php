@@ -34,12 +34,19 @@
 						</div>
 					@endif
 					
+					<x-input field="uniqueid" name="Kode Unik Tentor" value="" type="text"/>
 					<x-input field="username" name="Username" value="" type="text"/>
 					<x-input field="password" name="Password" value="" type="password"/>
 					<x-input field="name" name="Nama Lengkap" value="" type="text"/>
 					<x-input field="email" name="Email" value="" type="text"/>
 					<x-input field="address" name="Alamat" value="" type="text"/>
-					<x-input field="mapel" name="Mapel" value="" type="text"/>
+					<label class="form-label" for="mapel">Pilih Mapel</label>
+					<select id="tentor" class="form-select choices mb-3" name="mapel" aria-label="Default mapel">
+						<option selected>Mapel</option>
+						@foreach($mapel as $each)
+							<option value="{{$each->name_mapel}}">{{$each->name_mapel}}</option>
+						@endforeach
+					</select>
 					<x-input field="nohp" name="Nomer HP (Whatsapp)" value="" type="text" />
 					
 					<button type="submit" class="btn btn-outline-primary">Tambah</button>

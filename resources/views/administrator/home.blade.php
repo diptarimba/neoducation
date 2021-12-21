@@ -1,8 +1,6 @@
 	@extends('layout.page')
 	
-	@section('tab-title')
-		Administrator
-	@endsection
+	@section('tab-title','Administrator')
 	
 	@section('sidebar')
 		@component('components.adminSidebar')

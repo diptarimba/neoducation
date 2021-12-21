@@ -28,7 +28,13 @@
 			<li class="sidebar-item {{Request::is('tentor/laporan') ? 'active' : ''}}">
                <a href="{{url('tentor/laporan')}}" class='sidebar-link'>
                <i class="bi bi-grid-fill"></i>
-               <span>Laporan Resensi</span>
+               <span>Laporan Presensi</span>
+               </a>
+            </li>
+			<li class="sidebar-item">
+               <a href="{{url('logout')}}" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Logout</span>
                </a>
             </li>
          </ul>

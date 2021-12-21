@@ -19,10 +19,12 @@ class CreateStudentsTable extends Migration
 			$table->string('password');
 			$table->string('email')->nullable();
 			$table->string('name');
-			$table->string('parent_name');
+			$table->string('pict_name')->nullable();
+			$table->string('parent_name')->nullable();
 			$table->string('address')->nullable();
 			$table->string('phone')->nullable();
-			$table->enum('package', ['private', 'group']);
+			$table->rememberToken();
+			$table->string('package');
             $table->timestamps();
         });
     }

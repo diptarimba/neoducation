@@ -5,8 +5,10 @@
 		@endcomponent
 	@endsection
 	
+	@section('tab-title', 'Manajemen Mapel')
+	
 	@section('page-title')
-	<x-title heading="Manage Mapel" subheading="Manage Mapel" url="/admin" />
+	<x-title heading="Manajemen Mapel" subheading="Manajemen Mapel" url="/admin" />
 	@endsection
 	
 	@section('page-content')

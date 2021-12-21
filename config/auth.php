@@ -40,6 +40,21 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+		
+		'siswa' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
+		
+		'tentor' => [
+            'driver' => 'session',
+            'provider' => 'tentors',
+        ],
+		
+		'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -70,11 +85,21 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+		
+		'tentors' => [
+			'driver' => 'eloquent',
+			'model' => App\Models\Tentors::class,
+		],
+		
+		'students' => [
+			'driver' => 'eloquent',
+			'model' => App\Models\Students::class,
+		],
+		
+		'admins' => [
+			'driver' => 'eloquent',
+			'model' => App\Models\admins::class,
+		],
     ],
 
     /*
@@ -99,6 +124,25 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+		'tentors' => [
+            'provider' => 'tentors',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+		'students' => [
+            'provider' => 'students',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+		'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+		
     ],
 
     /*

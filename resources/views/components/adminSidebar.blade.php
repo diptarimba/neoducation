@@ -13,7 +13,7 @@
       <div class="sidebar-menu">
          <ul class="menu">
             <li class="sidebar-title">Admin Menu</li>
-            <li class="sidebar-item {{Request::is('admin/*') || Request::is('admin') ? 'active' : ''}}">
+            <li class="sidebar-item {{Request::is('admin') ? 'active' : ''}}">
 				<a href="{{url('admin')}}" class='sidebar-link'>
 				<i class="bi bi-grid-fill"></i>
 				<span>Home</span>
@@ -28,9 +28,6 @@
 					<li class="submenu-item ">
 						<a href="{{url('managesiswa')}}">Siswa</a>
 					</li>
-					<li class="submenu-item ">
-						<a href="{{url('/managesiswa/invoices')}}">Invoice Siswa</a>
-					</li>
 				</ul>
             </li>
 			<li class="sidebar-item has-sub {{Request::is('managetentor/*') || Request::is('managetentor') ? 'active' : ''}}">
@@ -42,33 +39,52 @@
 					<li class="submenu-item ">
 						<a href="{{url('managetentor')}}">Tentor</a>
 					</li>
-					<li class="submenu-item ">
-						<a href="{{url('managetentor/payable')}}">Pay Tentor</a>
-					</li>
-					
 				</ul>
             </li>
-			<li class="sidebar-item has-sub {{Request::is('configuration/*') || Request::is('configuration') ? 'active' : ''}}">
+			<li class="sidebar-item has-sub {{Request::is('admin/configuration/*') || Request::is('admin/configuration') ? 'active' : ''}}">
                <a href="{{url('configuration')}}" class='sidebar-link'>
                <i class="bi bi-grid-fill"></i>
 				<span>Konfigurasi</span>
                </a>
 			   <ul class="submenu ">
+			   <!--
 				<li class="submenu-item ">
 					<a href="{{url('admin/configuration/level')}}">Level Pengajar</a>
 				</li>
+				-->
 				<li class="submenu-item ">
 					<a href="{{url('admin/configuration/mapel')}}">Mata Pelajaran</a>
 				</li>
 				<li class="submenu-item ">
-					<a href="{{url('admin/configuration/kuisioner')}}">Kuisioner</a>
+					<a href="{{url('admin/configuration/package')}}">Paket Siswa</a>
+				</li>
+				<li class="submenu-item ">
+					<a href="{{url('admin/configuration/kuisioner')}}">Kuesioner</a>
 				</li>
 			   </ul>
             </li>
-			<li class="sidebar-item {{Request::is('lapkeu/*') || Request::is('lapkeu') ? 'active' : ''}}">
-               <a href="{{url('lapkeu')}}" class='sidebar-link'>
+			<li class="sidebar-item {{Request::is('admin/lapkeu') ? 'active' : ''}}">
+               <a href="{{url('admin/lapkeu')}}" class='sidebar-link'>
                <i class="bi bi-grid-fill"></i>
                <span>Laporan Keuangan</span>
+               </a>
+            </li>
+			<li class="sidebar-item {{Request::is('admin/presensi') ? 'active' : ''}}">
+               <a href="{{url('admin/presensi')}}" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Laporan Presensi</span>
+               </a>
+            </li>
+			<li class="sidebar-item {{ Request::is('admin/create') ? 'active' : ''}}">
+               <a href="{{url('admin/create')}}" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Manajemen Admin</span>
+               </a>
+            </li>
+			<li class="sidebar-item">
+               <a href="{{url('logout')}}" class='sidebar-link'>
+               <i class="bi bi-grid-fill"></i>
+               <span>Logout</span>
                </a>
             </li>
          </ul>

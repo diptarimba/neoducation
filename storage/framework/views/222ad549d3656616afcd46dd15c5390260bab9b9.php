@@ -1,8 +1,6 @@
 	
 
-	<?php $__env->startSection('tab-title'); ?>
-		Manage Siswa
-	<?php $__env->stopSection(); ?>
+	<?php $__env->startSection('tab-title','Manajemen Siswa ND'); ?>
 	
 	<?php $__env->startSection('sidebar'); ?>
 		<?php $__env->startComponent('components.adminSidebar'); ?>
@@ -15,11 +13,11 @@
 	
 	<?php $__env->startSection('page-title'); ?>
 	 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.title','data' => ['heading' => 'Manage Siswa','subheading' => 'Manage Siswa','url' => '/admin']]); ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.title','data' => ['heading' => 'Manajemen Siswa ND','subheading' => 'Manajemen Siswa ND','url' => '/admin']]); ?>
 <?php $component->withName('title'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['heading' => 'Manage Siswa','subheading' => 'Manage Siswa','url' => '/admin']); ?>
+<?php $component->withAttributes(['heading' => 'Manajemen Siswa ND','subheading' => 'Manajemen Siswa ND','url' => '/admin']); ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>

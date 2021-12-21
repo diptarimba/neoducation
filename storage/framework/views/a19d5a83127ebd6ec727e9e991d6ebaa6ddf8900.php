@@ -9,13 +9,15 @@
 <?php echo $__env->renderComponent(); ?>
 	<?php $__env->stopSection(); ?>
 	
+	<?php $__env->startSection('tab-title', 'Manajemen Mapel'); ?>
+	
 	<?php $__env->startSection('page-title'); ?>
 	 <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.title','data' => ['heading' => 'Manage Mapel','subheading' => 'Manage Mapel','url' => '/admin']]); ?>
+<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.title','data' => ['heading' => 'Manajemen Mapel','subheading' => 'Manajemen Mapel','url' => '/admin']]); ?>
 <?php $component->withName('title'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['heading' => 'Manage Mapel','subheading' => 'Manage Mapel','url' => '/admin']); ?>
+<?php $component->withAttributes(['heading' => 'Manajemen Mapel','subheading' => 'Manajemen Mapel','url' => '/admin']); ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
