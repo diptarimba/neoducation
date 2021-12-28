@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Reportusers extends Model
 {
 	public function tentor(){
-        return $this->belongsTo('\App\Models\Tentors', 'id'); 
+        return $this->belongsTo('\App\Models\Tentors', 'id');
     }
-	
+    public function student(){
+        return $this->belongsTo('\App\Models\Students', 'students', 'id' );
+    }
+
     public function getPaid($waktu = null){
 		if($waktu == null){
 			$query = DB::table('reportusers')
@@ -26,7 +29,7 @@ class Reportusers extends Model
 		}
 		return $query;
 	}
-	
+
 	public function getUnpaid($waktu = null){
 		if($waktu == null){
 		$query = DB::table('reportusers')
@@ -39,11 +42,11 @@ class Reportusers extends Model
 				->select(DB::raw('SUM(biaya) as tbiaya'))
 				->where('status_bayar', 'unpaid')
 				->get();
-			
+
 		}
 		return $query;
 	}
-	
+
 	public function Total(){
 		$query = DB::table('reportusers')
 				->select(DB::raw('SUM(biaya) as tbiaya'))

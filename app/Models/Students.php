@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +39,7 @@ class Students extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-	
+
 	function getQuizList($id)
 	{
 
@@ -47,7 +49,7 @@ class Students extends Authenticatable
 						})
 						->where('reportusers.students', $id)
 						->whereRaw('reportusers.tentors NOT IN (
-							SELECT tentor_id 
+							SELECT tentor_id
 							FROM quiztentors
 							WHERE MONTH(`created_at`) = MONTH(CURRENT_DATE())
 								AND YEAR(`created_at`) = YEAR(CURRENT_DATE())
@@ -57,7 +59,7 @@ class Students extends Authenticatable
 		//dd($tentor);
 		return $tentor;
 	}
-	
+
 	function getResultList($id)
 	{
 
@@ -73,7 +75,7 @@ class Students extends Authenticatable
 		//dd($result);
 		return $result;
 	}
-	
+
 	function getQuizResult($id)
 	{
 		$getid = $this->getResultList($id);
@@ -113,8 +115,8 @@ class Students extends Authenticatable
 								//SUM(case when quizsiswas.ans8 = 'Tidak' then 1 else 0 end) as ans8,
 								//SUM(case when quizsiswas.ans9 = 'Tidak' then 1 else 0 end) as ans9,
 								//SUM(case when quizsiswas.ans10 = 'Tidak' then 1 else 0 end) as ans10,
-								
-								
+
+
 								"quizsiswas.ans8 as arrs8,
 								quizsiswas.ans9 as arrs9,
 								quizsiswas.ans10 as arrs10,
@@ -135,4 +137,9 @@ class Students extends Authenticatable
 		//dd($result);
 		return $result;
 	}
+
+    public function reportuser()
+    {
+        return $this->hasMany('\App\Models\Reportusers');
+    }
 }

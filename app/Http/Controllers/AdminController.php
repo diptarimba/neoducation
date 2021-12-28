@@ -36,7 +36,7 @@ class AdminController extends Controller
     {
         $admin = Admins::all();
 		return view('administrator.management.home', compact('admin'));
-		
+
     }
 
     /**
@@ -57,13 +57,13 @@ class AdminController extends Controller
 		    'username.min' => 'Username minimal 5 karakter',
 		    'password.min' => 'Password minimal 8 karakter'
 		]);
-		
+
 		$admin = new Admins;
 		$admin->username = $request->username;
 		$admin->name = $request->name;
 		$admin->password = bcrypt($request->password);
 		$admin->save();
-		
+
 		return redirect()->route('admin.create');
     }
 
@@ -115,10 +115,10 @@ class AdminController extends Controller
 		}else{
 			return redirect()->route('admin.create')->with('message', 'Administrator tidak bisa dihapus, hanya satu-satunya!');
 		}
-		
+
 		return redirect()->route('admin.create');
     }
-	
+
 	public function showLapKeu()
 	{
 		if(Reportusers::count() <= 0){
@@ -131,29 +131,38 @@ class AdminController extends Controller
 			$unpaid = $reports->getUnpaid("Total");
 			$paid = $reports->getPaid("Total");
 			$all = $reports->Total();
-			//dd($unpaidThisMonth);
 			return view('administrator.keuangan.home', compact('unpaidThisMonth','paidThisMonth', 'unpaid', 'paid', 'all'));
 		}
-		
+
 	}
-	
+
+    public function lapkeuDetail(Request $request)
+    {
+        $reports = Reportusers::with('student')->when($request->status_bayar, function ($q) use ($request){
+            $q->where('status_bayar', $request->status_bayar);
+        })->when($request->this_month, function ($q) use ($request){
+            $q->whereRaw('MONTH(`created_at`) = MONTH(CURRENT_DATE()) AND YEAR(`created_at`) = YEAR(CURRENT_DATE())');
+        })->paginate(10);
+        return view('administrator.keuangan.subkeuangan', compact('reports'));
+    }
+
 	public function presensi()
 	{
 		$data = Reports::with('tentor')->get();
 		// dd($data);
 		return view('administrator.presensi.home', compact('data'));
 	}
-	
+
 	public function deletePresensi(Request $request)
 	{
 		$request->validate([
 			'hashCode' => 'required',
 		]);
-		
+
 		Reports::where('hash', $request->hashCode)->delete();
 		Reportusers::where('hash', $request->hashCode)->delete();
-		
+
 		return redirect()->route('admin.presensi');
 	}
-	
+
 }

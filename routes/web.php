@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:admin')->group(function(){
 	//Admin Configuration
 	Route::get('/admin/lapkeu', 'AdminController@showLapKeu');
+	Route::get('/admin/lapkeu/detail', 'AdminController@lapkeuDetail');
 	//Route::post('admin/management', 'AdminController@store');
 	Route::get('/admin/configuration/mapel', 'AdminConfiguration@showmapel');
 	Route::get('/admin/configuration/level', 'AdminConfiguration@showlevel');
@@ -36,12 +37,12 @@ Route::middleware('auth:admin')->group(function(){
 	Route::post('/admin/configuration/kuisioner', 'AdminConfiguration@updatekuisioner');
 	Route::get('/admin/presensi', 'AdminController@presensi')->name('admin.presensi');
 	Route::delete('/admin/presensi', 'AdminController@deletePresensi');
-	
+
 	Route::get('/admin/siswa/invoice/{id}', 'ManageSiswaController@showinvoice');
 	Route::post('/admin/siswa/invoice/{id}', 'ManageSiswaController@printinvoice');
-	
+
 	Route::get('/managetentor/{id}/result', 'ManageTentorController@tentorquiz');
-	
+
 	Route::resource('admin', 'AdminController');
 	Route::put('managetentor/{id}/respass', 'ManageTentorController@resetpass');
 	Route::put('managesiswa/{id}/respass', 'ManageSiswaController@resetpass');
@@ -49,7 +50,7 @@ Route::middleware('auth:admin')->group(function(){
 	Route::resource('managesiswa', 'ManageSiswaController');
 	Route::resource('managepresensi', 'ManagePresensiController');
 	Route::resource('managekeuangan', 'ManageKeuanganController');
-	
+
 });
 //Tentor Controller
 Route::middleware('auth:tentor')->group(function(){
@@ -63,11 +64,11 @@ Route::middleware('auth:siswa')->group(function(){
 	Route::get('/siswa/quiz', 'SiswaController@quiz');
 	Route::get('/siswa/quizresult', 'SiswaController@quizresult');
 	Route::get('/siswa/invoice', 'SiswaController@invoice');
-	
+
 	Route::resource('siswa', 'SiswaController');
 });
 
-	
+
 Route::get('/', function () {
 	if(Auth::guard('tentor')->check()){
 		return redirect('/tentor');

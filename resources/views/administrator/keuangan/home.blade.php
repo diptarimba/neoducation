@@ -1,16 +1,16 @@
 	@extends('layout.page')
-	
+
 	@section('sidebar')
 		@component('components.adminSidebar')
 		@endcomponent
 	@endsection
-	
+
 	@section('tab-title', 'View Keuangan')
-	
+
 	@section('page-title')
 	<x-title heading="View Keuangan" subheading="View Keuangan" url="/admin" />
 	@endsection
-	
+
 	@section('page-content')
 	<section class="section">
 		@if(!isset($nothing))
@@ -19,11 +19,10 @@
 		<div class="col-md-6 ">
 			<div class="card">
 				<div class="card-header">
-				<p class="card-title">Pendapatan Kotor (unpaid) bulan ini</p>
+				<p class="card-title">Pendapatan Kotor (unpaid) bulan ini<a href="/admin/lapkeu/detail?status_bayar=unpaid&this_month=" class="badge bg-info float-end">Detail</a></p>
 				</div>
 				<div class="card-body">
 				@foreach($unpaidThisMonth as $each)
-				
 				Rp. {{ number_format($each->tbiaya, 0, ",", ".") }}
 				@endforeach
 				</div>
@@ -32,7 +31,7 @@
 		<div class="col-md-6 ">
 			<div class="card">
 				<div class="card-header">
-				<p class="card-title">Pendapatan Bersih (paid) bulan ini</p>
+				<p class="card-title">Pendapatan Bersih (paid) bulan ini<a href="/admin/lapkeu/detail?status_bayar=paid&this_month=" class="badge bg-info float-end">Detail</a></p>
 				</div>
 				<div class="card-body">
 				@foreach($paidThisMonth as $each)
@@ -46,7 +45,7 @@
 		<div class="col-md-6 ">
 			<div class="card">
 				<div class="card-header">
-				<p class="card-title">Pendapatan Kotor (unpaid) All Time</p>
+				<p class="card-title">Pendapatan Kotor (unpaid) All Time<a href="/admin/lapkeu/detail?status_bayar=unpaid" class="badge bg-info float-end">Detail</a></p>
 				</div>
 				<div class="card-body">
 				@foreach($unpaid as $each)
@@ -58,7 +57,7 @@
 		<div class="col-md-6 ">
 			<div class="card">
 				<div class="card-header">
-				<p class="card-title">Pendapatan Bersih (paid) All Time</p>
+				<p class="card-title">Pendapatan Bersih (paid) All Time<a href="/admin/lapkeu/detail?status_bayar=paid" class="badge bg-info float-end">Detail</a></p>
 				</div>
 				<div class="card-body">
 				@foreach($paid as $each)
@@ -72,7 +71,7 @@
 		<div class="col-md-6 ">
 			<div class="card">
 				<div class="card-header">
-				<p class="card-title">Pendapatan Kotor All Time</p>
+				<p class="card-title">Pendapatan Kotor All Time<a href="/admin/lapkeu/detail?all" class="badge bg-info float-end">Detail</a></p>
 				</div>
 				<div class="card-body">
 				@foreach($all as $each)
@@ -94,11 +93,11 @@
 		@endif
 	</section>
 	@endsection
-	
+
 	@section('header-custom')
 	<link rel="stylesheet" href="{{ asset('assets/vendors/simple-datatables/style.css') }}">
 	@endsection
-	
+
 	@section('footer-custom')
 	<script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
     <script>
@@ -107,4 +106,3 @@
         let dataTable = new simpleDatatables.DataTable(table1);
     </script>
 	@endsection
-	
