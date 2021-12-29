@@ -53,11 +53,11 @@ class TentorController extends Controller
     public function store(Request $request)
     {
 		//dd($request);
-		
+
 		//dd(count($request->peserta));
-		
+
 		// dd($request);
-		
+
         $validatedData = $request->validate([
 			'topic' => 'required|min:5|max:255',
 			'tempat' => 'required|min:5|max:255',
@@ -72,13 +72,14 @@ class TentorController extends Controller
 			'ans.*.4' => 'required',
 			'ans.*.5' => 'required',
 			'ans.*.6' => 'required',
-			'ans.*.7' => 'required'
+			'ans.*.7' => 'required',
+			'ans.*.11' => 'required'
 		]);
-		
+
 		$hash = $this->unique_code(10);
-		
+
 		foreach($request->ans as $each){
-				
+
 				$quiz = new Quizsiswas;
 				$quiz->hash = $hash;
 				$quiz->siswa_id = $each['id'];
@@ -93,11 +94,12 @@ class TentorController extends Controller
 				$quiz->ans8 = ($each['8']) ? $each['8'] : 'Tidak';
 				$quiz->ans9 = ($each['9']) ? $each['9'] : 'Tidak';
 				$quiz->ans10 = ($each['10']) ? $each['10'] : 'Tidak';
+				$quiz->nilai = ($each['11']) ? $each['11'] : '';
 				$quiz->save();
 		}
-		
+
 		foreach($request->peserta as $each_peserta){
-			
+
 			$package = Students::where('id', $each_peserta)->pluck('package');
 			$biaya = Packages::where('package_name', $package[0])->pluck('package_price');
 			$reportusers = new Reportusers;
@@ -112,9 +114,9 @@ class TentorController extends Controller
 			$reportusers->students = $each_peserta;
 			$reportusers->biaya = $biaya[0];
 			$reportusers->save();
-			
+
 		}
-		
+
 		$reports = new Reports;
 		$reports->topic = $request->topic;
 		$reports->place = $request->tempat;
@@ -124,9 +126,9 @@ class TentorController extends Controller
 		$reports->hash = $hash;
 		$reports->students = implode(', ', $request->peserta);
 		$reports->save();
-		
+
 		return redirect('/tentor/laporan');
-		
+
     }
 
     /**
@@ -161,14 +163,14 @@ class TentorController extends Controller
      */
     public function update(Request $request, $id)
     {
-		
+
 		//dd($request);
-		
+
 		$validate = $request->validate([
 			'pictProfile' => 'mimes:jpeg,png,jpg|max:2048',
 		]);
-		
-		
+
+
         $tentor = Tentors::find($id);
 		// dd($request->password, $tentor-> password);
 		$tentor->uniqueid = $request->uniqueid ?? $tentor-> uniqueid;
@@ -178,15 +180,16 @@ class TentorController extends Controller
 		$tentor->email = $request->email ?? $tentor-> email;
 		$tentor->address = $request->address ?? $tentor-> address;
 		$tentor->mapel = $request->mapel ?? $tentor-> mapel;
-		
+
 		if(isset($request->pictProfile)){
 			$imageName = $id. '-' . time() . '.' . $request->pictProfile->extension();
+            // $request->pictProfile->move('assets/images/tentor', $imageName); // Web Cpanel
 			$request->pictProfile->move(public_path('assets/images/tentor'), $imageName);
 			$tentor->pict_name = $imageName;
 		}
-		
+
 		$tentor->save();
-		
+
 		return redirect('/tentor');
     }
 
@@ -200,12 +203,12 @@ class TentorController extends Controller
     {
         //
     }
-	
+
 	public function unique_code($limit)
 	{
 		return substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $limit);
 	}
-	
+
 	public function laporan()
 	{
 		$id = Auth::id();

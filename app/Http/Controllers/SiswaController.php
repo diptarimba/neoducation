@@ -56,8 +56,8 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
-        
-		
+
+
     }
 
     /**
@@ -82,7 +82,7 @@ class SiswaController extends Controller
     public function update(Request $request, $id)
     {
 		//dd($request->pictProfile);
-		
+
 		$validate = $request->validate([
 			'pictProfile' => 'mimes:jpeg,png,jpg|max:2048',
 		]);
@@ -94,15 +94,16 @@ class SiswaController extends Controller
 		$siswa->name = $request->NamaSiswa ?? $siswa-> name;
 		$siswa->parent_name = $request->NamaOrtu ?? $siswa-> parent_name;
 		$siswa->address = $request->Address ?? $siswa-> address;
-		
+
 		if(isset($request->pictProfile)){
 			$imageName = $id. '-' . time() . '.' . $request->pictProfile->extension();
+            // $request->pictProfile->move('assets/images/siswa', $imageName); //Buat Web Cpanel
 			$request->pictProfile->move(public_path('assets/images/siswa'), $imageName);
 			$siswa->pict_name = $imageName;
 		}
-		
+
 		$siswa->save();
-		
+
 		return redirect('/siswa');
     }
 
@@ -116,7 +117,7 @@ class SiswaController extends Controller
     {
         //
     }
-	
+
 	public function invoice($id = null)
 	{
 		$id = Auth::id();
@@ -125,13 +126,13 @@ class SiswaController extends Controller
 		$total = Reportusers::where('students', $id)->where('status_bayar', 'unpaid')->sum('biaya');
 		return view('siswa.invoice', compact(['siswa', 'datahadir', 'total']));
 	}
-	
+
 	public function quiz()
 	{
 		$ValidateQuiz = Configs::checkCurrentConfigs('quizsiswa');
 		$students = new Students;
 		$listtentor = $students->getQuizList(Auth::id());
-		
+
 		// if(count($ValidateQuiz)){
 		if(isset($ValidateQuiz->keyparams) && $ValidateQuiz->keyparams == 'quizsiswa'){
 			return view('siswa.quiz', compact('listtentor'));
@@ -139,10 +140,10 @@ class SiswaController extends Controller
 			return view('siswa.quiz');
 		}
 	}
-	
+
 	public function quizupdate(Request $request){
 		//dd($request);
-		
+
 		$validate = $request->validate([
 			'ans.user' => 'required',
 			'ans.tentor' => 'required',
@@ -156,7 +157,7 @@ class SiswaController extends Controller
 			'ans.8' => 'required',
 			'ans.9' => 'required',
 		]);
-		
+
 		$qtentor = new Quiztentors;
 		$qtentor->tentor_id = $request->ans['tentor'];
 		$qtentor->siswa_id = $request->ans['user'];
@@ -170,10 +171,10 @@ class SiswaController extends Controller
 		$qtentor->ans8 = $request->ans['8'];
 		$qtentor->ans9 = $request->ans['9'];
 		$qtentor->save();
-		
+
 		return redirect('/siswa/quiz');
 	}
-	
+
 	public function quizresult()
 	{
 		$id = Auth::id();

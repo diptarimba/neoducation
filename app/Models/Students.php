@@ -104,7 +104,10 @@ class Students extends Authenticatable
 								cast(AVG(quizsiswas.ans7 = 'Ya') as decimal(9,2)) as avg7,
 								cast(AVG(quizsiswas.ans8 = 'Tidak') as decimal(9,2)) as avg8,
 								cast(AVG(quizsiswas.ans9 = 'Tidak') as decimal(9,2)) as avg9,
-								cast(AVG(quizsiswas.ans10 = 'Tidak') as decimal(9,2)) as avg10," .
+								cast(AVG(quizsiswas.ans10 = 'Tidak') as decimal(9,2)) as avg10,
+								cast(AVG(nilai) as decimal(9,2)) as nilai,
+
+                                ".
 								//SUM(case when quizsiswas.ans1 = 'Ya' then 1 else 0 end) as ans1,
 								//SUM(case when quizsiswas.ans2 = 'Ya' then 1 else 0 end) as ans2,
 								//SUM(case when quizsiswas.ans3 = 'Ya' then 1 else 0 end) as ans3,

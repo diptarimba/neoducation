@@ -57,7 +57,7 @@
             <div class="card-footer">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination pagination-primary justify-content-center">
-                        {{$reports->links()}}
+                        {{$reports->appends($_GET)->links()}}
                     </ul>
                 </nav>
             </div>

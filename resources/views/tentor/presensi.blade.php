@@ -1,14 +1,14 @@
 	@extends('layout.page')
-	
+
 	@section('tab-title')
 		Presensi
 	@endsection
-	
+
 	@section('sidebar')
 		@component('components.tentorSidebar')
 		@endcomponent
 	@endsection
-	
+
 	@section('page-title')
 	<div class="page-title">
         <div class="row">
@@ -27,7 +27,7 @@
         </div>
     </div>
 	@endsection
-	
+
 	@section('page-content')
 	<section class="section">
 		<div class="row">
@@ -38,7 +38,7 @@
                     </div>
 					<div class="card-body">
 					<form action='/tentor' method="POST">
-					
+
 					@csrf
 					@if ($errors->any())
 						<div class="alert alert-danger">
@@ -74,24 +74,24 @@
 						<label class="form-label" for="siswa">Peserta Bimbingan</label>
 						<select id="pesertapilih"class="choices form-select multiple-remove" name="peserta[]" multiple="multiple"  aria-label="Default siswa">
 							<optgroup label="Siswa">
-								
+
 								@foreach($siswa as $each)
 									<option value="{{$each->id}}">{{$each->name . " - " . $each->package }}</option>
 								@endforeach
-								
+
 							</optgroup>
 						</select>
 					</div>
-					
+
 					<!-- Button trigger for basic modal -->
-					
+
 					<div class="row justify-content-center" id="buttonField">
 
-					
+
 
 					</div>
 					<div id="quizcontainer">
-					
+
 					</div>
 
 					<!--
@@ -109,35 +109,35 @@
 		</div>
 	</section>
 	@endsection
-	
+
 	@section('header-custom')
 	<!-- Include Choices CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/choices.js/choices.min.css') }}" />
 	<link rel="stylesheet" href="{{ asset('assets/vendors/sweetalert2/sweetalert2.min.css') }}">
 	@endsection
-	
+
 	@section('footer-custom')
 	<!-- Include Choices JavaScript -->
     <script src="{{ asset('assets/vendors/choices.js/choices.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/form-element-select.js') }}"></script>
-	
+
     <script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
-	
+
 	<!-- adding quiz -->
 	<script>
 	$(document).ready(() => {
-		
-		
+
+
 		$('.inputpresensi').on('click', function(e) {
 			e.preventDefault();
-			
-			
+
+
 			var checkeder = $(':radio:checked').length;
 			console.log(checkeder)
-			
+
 			var jumlahform = $('.buathitung').length;
 			console.log(jumlahform);
-			
+
 			if(jumlahform < 1){
 				Swal.fire({
 					icon: "error",
@@ -149,14 +149,14 @@
 					title: "Kamu belum mengisi semua form siswa, silahkan cek ulang!!"
 				})
 			}else{
-			
+
 				var form = $('form');
 				form.submit();
 			}
 		})
-		
+
 		var map = $("#pesertapilih").on("change",function(){
-			
+
 			if($("#pesertapilih option:selected").length === 7){
 				console.log($("#pesertapilih option:selected").length)
 				$(".choices").prop('disabled', true);
@@ -164,7 +164,7 @@
 			}else{
 				$(".choices").prop('disabled', false);
 			}
-			
+
 			var comp = $("#pesertapilih option:selected").map(function() {
 					return this.value;
 				}).get(),
@@ -175,12 +175,12 @@
 					return map.indexOf(i) < 0;
 				}),
 				idsiswa = (set1.length ? set1 : set2)[0];
-				
-		
+
+
 			map = comp;
-			
+
 			var namasiswa = $("#pesertapilih option[value="+idsiswa+"]:selected").text().split("-")[0].trim();
-			
+
 			if(set1.length){
 				$('#btnModal'+ idsiswa ).remove();
 				$('#siswa'+ idsiswa ).remove();
@@ -202,21 +202,23 @@
 				+'<div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][3]" id="ans2" value="Tidak"><label class="form-check-label" for="ans2"> Tidak </label></div></td></tr><tr><td><li>Suasana belajar kondusif</li></td><td>'
 				+'<div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][4]" id="ans1" value="Ya"><label class="form-check-label" for="ans1"> Ya </label></div></td><td>'
 				+'<div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][4]" id="ans2" value="Tidak"><label class="form-check-label" for="ans2"> Tidak </label></div></td></tr><tr><td><li>Tempat belajar nyaman</li></td><td>'
-				+'<div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][5]" id="ans1" value="Ya"><label class="form-check-label" for="ans1"> Ya </label></div></td>'
-				+'<td><div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][5]" id="ans2" value="Tidak"><label class="form-check-label" for="ans2"> Tidak </label></div></td></tr></ul></tbody></table>'
-				
+				+'<div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][5]" id="ans1" value="Ya"><label class="form-check-label" for="ans1"> Ya </label></div></td><td>'
+				+'<div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][5]" id="ans2" value="Tidak"><label class="form-check-label" for="ans2"> Tidak </label></div></td></tr></ul></tbody></table>'
+
 				+'<table class="table table-borderless"><thead><tr><th colspan="3">Kedisiplinan</th></tr></thead><tbody><ul><tr><td><li>Mulai tepat waktu?</li></td><td>'
 				+'<div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][6]" id="ans1" value="Ya"><label class="form-check-label" for="ans1"> Ya </label></div></td><td><div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][6]" id="ans2" value="Tidak"><label class="form-check-label" for="ans2"> Tidak </label></div></td></tr><tr><td><li>Selesai tepat waktu?</li></td><td>'
 				+'<div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][7]" id="ans1" value="Ya"><label class="form-check-label" for="ans1"> Ya </label></div></td><td><div class="form-check"><input required class="form-check-input" type="radio" name="ans['+ idsiswa +'][7]" id="ans2" value="Tidak"><label class="form-check-label" for="ans2"> Tidak </label></div></td></tr></ul></tbody></table>'
-				+'<table class="table table-borderless"><thead><tr><th colspan="3">Kualitas Belajar </th></tr></thead><tbody><ul>'
+
+                +'<table class="table table-borderless"><thead><tr><th colspan="3">Kualitas Belajar </th></tr></thead><tbody><ul>'
 				+'<tr><td><li>Ada masalah?</li></td><td><div class="form-check "><div class="mb-3"><input type="text" name="ans['+ idsiswa +'][8]" class="form-control" id="ask"></div></div></td><td><div class="form-check form-switch"></div></td></tr>'
 				+'<tr><td><li>Ada PR yang belum selesai?</li></td><td><div class="form-check "><div class="mb-3"><input type="text" name="ans['+ idsiswa +'][9]" class="form-control" id="ask"></div></div></td><td><div class="form-check form-switch"></div></td></tr>'
-				+'<tr><td><li>Adakah inspirasi dan motivasi yang diberikan?</li></td><td><div class="form-check "><input type="text" name="ans['+ idsiswa +'][10]" class="form-control" id="ask"></div></div></td><td><div class="form-check form-switch"></div></td></tr></ul></tbody></table></div></div></div><div class="modal-footer"><button type="button" class="btn" data-bs-dismiss="modal"><i class="bx bx-x d-block d-sm-none"></i><span class="d-none d-sm-block">Close</span></button></div></div></div></div>');
+				+'<tr><td><li>Adakah inspirasi dan motivasi yang diberikan?</li></td><td><div class="form-check "><input type="text" name="ans['+ idsiswa +'][10]" class="form-control" id="ask"></div></div></td><td><div class="form-check form-switch"></div></td></tr>'
+				+'<tr><td><li>Berikan Nilai 1-100</li></td><td><div class="form-check "><input type="text" name="ans['+ idsiswa +'][11]" class="form-control" id="ask"></div></div></td><td><div class="form-check form-switch"></div></td></tr>'
+                +'</ul></tbody></table></div></div></div><div class="modal-footer"><button type="button" class="btn" data-bs-dismiss="modal"><i class="bx bx-x d-block d-sm-none"></i><span class="d-none d-sm-block">Close</span></button></div></div></div></div>');
 			}
-		
+
 		}).find('option:selected').map(function() {return this.value}).get();
-		
+
 	})
 	</script>
 	@endsection
-	

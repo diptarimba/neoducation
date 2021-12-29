@@ -158,11 +158,13 @@ class AdminController extends Controller
 		$request->validate([
 			'hashCode' => 'required',
 		]);
-
-		Reports::where('hash', $request->hashCode)->delete();
-		Reportusers::where('hash', $request->hashCode)->delete();
-
-		return redirect()->route('admin.presensi');
+        $paidCount = Reportusers::where('hash', $request->hashCode)->where('status_bayar', 'paid')->count();
+        if($paidCount == 0){
+            Reportusers::where('hash', $request->hashCode)->where('status_bayar', 'unpaid')->delete();
+            Reports::where('hash', $request->hashCode)->delete();
+            return redirect()->route('admin.presensi')->with('status', 'Data Berhasil Dihapus');
+        }
+        return redirect()->route('admin.presensi')->with('error', 'Data Tidak dapat dihapus, sudah ada yang dibayar');
 	}
 
 }
