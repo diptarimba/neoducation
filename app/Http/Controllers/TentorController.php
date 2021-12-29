@@ -73,7 +73,7 @@ class TentorController extends Controller
 			'ans.*.5' => 'required',
 			'ans.*.6' => 'required',
 			'ans.*.7' => 'required',
-			'ans.*.11' => 'required'
+			'ans.*.11' => 'required|gt:0|gte|100'
 		]);
 
 		$hash = $this->unique_code(10);
