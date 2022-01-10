@@ -142,8 +142,15 @@ class AdminController extends Controller
             $q->where('status_bayar', $request->status_bayar);
         })->when($request->this_month, function ($q) use ($request){
             $q->whereRaw('MONTH(`created_at`) = MONTH(CURRENT_DATE()) AND YEAR(`created_at`) = YEAR(CURRENT_DATE())');
+        })->when($request->bulan, function($q) use ($request){
+            $q->whereMonth('created_at', $request->bulan);
+        })->when($request->tahun, function($q) use ($request){
+            $q->whereYear('created_at', $request->tahun);
         })->paginate(10);
-        return view('administrator.keuangan.subkeuangan', compact('reports'));
+
+        $year = Reportusers::select(DB::raw('YEAR(created_at) as year'))->groupby('year')->pluck('year');
+        $month = Reportusers::select(DB::raw('MONTH(created_at) as month'))->groupby('month')->pluck('month');
+        return view('administrator.keuangan.subkeuangan', compact('reports','year','month'));
     }
 
 	public function presensi()

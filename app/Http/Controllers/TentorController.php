@@ -73,8 +73,11 @@ class TentorController extends Controller
 			'ans.*.5' => 'required',
 			'ans.*.6' => 'required',
 			'ans.*.7' => 'required',
-			'ans.*.11' => 'required|gt:0|gte|100'
-		]);
+			'ans.*.11' => 'required|gte:1|lte:100'
+		],[
+            'ans.*.11.lte' => 'Nilai yang diberikan ke siswa tidak boleh lebih dari 100',
+            'ans.*.11.gte' => 'Nilai yang diberikan ke siswa tidak boleh kurang dari 1'
+        ]);
 
 		$hash = $this->unique_code(10);
 
