@@ -42,14 +42,14 @@ class ManageSiswaController extends Controller
     public function store(Request $request)
     {
 		//dd($request);
-		
+
         $validate = $request->validate([
 			'username' => 'required|min:5',
 			'password' => 'required|min:8',
 			'name' => 'required',
 			'package' => 'required',
 		]);
-		
+
 		$siswa = new Students;
 		$siswa->username = $request->username;
 		$siswa->password = bcrypt($request->password);
@@ -61,7 +61,7 @@ class ManageSiswaController extends Controller
 		$siswa->phone = $request->phone;
 		$siswa->package = $request->package;
 		$siswa->save();
-		
+
 		return redirect('/managesiswa');
     }
 
@@ -103,7 +103,7 @@ class ManageSiswaController extends Controller
 			'username' => 'required|min:5',
 			'name' => 'required',
 		]);
-		
+
 		$siswa = Students::find($id);
 		$siswa->username = $request->username ?? $siswa-> username;
 		$siswa->password = (!empty($request->password)) ? bcrypt($request->password) : $siswa-> password;
@@ -114,7 +114,7 @@ class ManageSiswaController extends Controller
 		$siswa->phone = $request->phone ?? $siswa-> phone;
 		$siswa->package = $request->package ?? $siswa-> package;
 		$siswa->save();
-		
+
 		return redirect('/managesiswa/'.$id);
     }
 
@@ -129,26 +129,25 @@ class ManageSiswaController extends Controller
         Students::find($id)->delete();
 		return redirect('/managesiswa/');
     }
-	
+
 	public function showinvoice($id)
 	{
 		$siswa = Students::find($id);
 		$kehadiran = Reportusers::where('students', $id)->get();
 		//dd($kehadiran);
 		return view('administrator.siswa.invoice', compact(['siswa', 'kehadiran']));
-		
+
 	}
-	
+
 	public function printinvoice(Request $request, $id)
-	{	
+	{
+        // dd($request);
 		switch($request->action){
 			case 'print':
 				$siswa = Students::find($id);
-				$dataInvoice = [];
-				foreach($request->hash as $each){
-					$dataInvoice[] = Reportusers::where('hash', $each)->where('students', $id)->get();
-				}
-					return view('administrator.siswa.printinvoice', compact(['dataInvoice', 'siswa']));
+                $dataInvoice = Reportusers::whereIn('hash', $request->hash)->where('students', $id)->get();
+                $total = Reportusers::whereIn('hash', $request->hash)->where('students', $id)->sum('biaya');
+				return view('administrator.siswa.printinvoice', compact(['dataInvoice', 'siswa', 'total']));
 			break;
 			case 'paid':
 				foreach($request->hash as $each){
@@ -158,13 +157,13 @@ class ManageSiswaController extends Controller
 			break;
 		}
 	}
-	
+
 	public function resetpass($id)
 	{
 		$siswa = Students::find($id);
 		$siswa->password = bcrypt('12345678');
 		$siswa->save();
-		
+
 		return redirect('/managesiswa/'.$id)->with('status', 'Passsowrd Berhasil di Reset');
 	}
 }

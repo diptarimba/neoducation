@@ -1,10 +1,10 @@
 	@extends('layout.page')
-	
+
 	@section('sidebar')
 		@component('components.adminSidebar')
 		@endcomponent
 	@endsection
-	
+
 	@section('page-title')
 	<div class="page-title">
         <div class="row">
@@ -23,11 +23,11 @@
         </div>
     </div>
 	@endsection
-	
+
 	@section('tab-title')
 		Invoice Siswa
 	@endsection
-	
+
 	@section('page-content')
 	<section class="section" id="invoiceses">
 	<div class="row">
@@ -54,18 +54,18 @@
 		</div>
         <div class="card">
             <div class="card-header">
-				
+
             </div>
             <div class="card-body">
 				<table class="table table-striped " >
-					
+
 					<thead>
 						<th>No</th>
 						<th>Keterangan</th>
 						<th>Waktu</th>
 						<th>Biaya</th>
 					</thead>
-					
+
 					<tbody class="siapprint"><!--
 					<tr>
 						<td><b>No</b></td>
@@ -73,27 +73,19 @@
 						<td><b>Waktu</b></td>
 						<td><b>Biaya</b></td>
 					</tr> -->
-						@php
-							$no = 0;
-						@endphp
-						@foreach($dataInvoice as $eachs)
-						@php
-							$no++;
-						@endphp
-							@foreach($eachs as $each)
-							<tr>
-								<td>{{$no}}</td>
-								<td>Topik : {{$each->topic}}<br/>Mata Pelajaran : {{$each->mapel}}<br/>Nama Tentor : {{$each->name_tentors}}</td>
-								<td>{{$each->date_exec}}<br/></td>
-							<td>Rp. 30.000</td>
-							</tr>
-							@endforeach
+						@foreach($dataInvoice as $each)
+						<tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>Topik : {{$each->topic}}<br/>Mata Pelajaran : {{$each->mapel}}<br/>Nama Tentor : {{$each->name_tentors}}</td>
+                            <td>{{$each->date_exec}}<br/></td>
+                        <td>Rp. {{number_format($each->biaya,"0",",",".")}}</td>
+                        </tr>
 						@endforeach
 						<tr>
 							<td class="text-center" colspan="3">Total</td>
-							<td>Rp. {{number_format(30000*$no,"0",",",".")}}
+							<td>Rp. {{number_format($total,"0",",",".")}}
 						</tr>
-						
+
 					</tbody>
 				</table>
             </div>
@@ -108,58 +100,58 @@
     </div>
     </section>
 	@endsection
-	
+
 	@section('header-custom')
-	
+
 	@endsection
-	
+
 	@section('footer-custom')
 		<script src="{{ asset('assets/js/extensions/jQuery.print.min.js') }}"></script>
 		<script>
 			$(document).ready(() => {
 				console.log($('.siapprint'));
 				$('.btnprint').on('click', function(){
-					
+
 					$('.containerbutton').hide();
-					
+
 					$("#invoiceses").print({
 
 					// Use Global styles
-					globalStyles : false, 
-					
+					globalStyles : false,
+
 					// Add link with attrbute media=print
-					mediaPrint : false, 
-					
+					mediaPrint : false,
+
 					//Custom stylesheet
-					stylesheet : "{{ asset('assets/css/bootstrap.css') }}", 
-					
+					stylesheet : "{{ asset('assets/css/bootstrap.css') }}",
+
 					//Print in a hidden iframe
-					iframe : false, 
-					
+					iframe : false,
+
 					// Don't print this
 					noPrintSelector : ".avoid-this",
-					
+
 					// Add this on top
-					//append : "Free jQuery Plugins<br/>", 
-					
+					//append : "Free jQuery Plugins<br/>",
+
 					// Add this at bottom
 					//prepend : "<br/>jQueryScript.net",
-					
+
 					// Manually add form values
 					manuallyCopyFormValues: true,
-					
+
 					// resolves after print and restructure the code for better maintainability
 					deferred: $.Deferred(),
-					
+
 					// timeout
 					timeout: 250,
-					
+
 					// Custom title
 					title: "Invoice {{$siswa->name}}",
-					
+
 					// Custom document type
 					doctype: '<!doctype html>'
-					
+
 					});
 				})
 			})

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class Tentors extends Authenticatable
 {
     use Notifiable;
-	
+
 	static $resultquiz;
 
     /**
@@ -39,7 +39,7 @@ class Tentors extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-	
+
 	public static function resultquiz($id)
 	{
 		// dd($id);
@@ -73,7 +73,7 @@ class Tentors extends Authenticatable
 					cast(AVG(quiztentors.ans9 = 'Selalu') as decimal(9,2)) as su9,
 					cast(AVG(quiztentors.ans9 = 'Sering') as decimal(9,2)) as se9,
 					cast(AVG(quiztentors.ans9 = 'Jarang') as decimal(9,2)) as je9,
-					
+
 					tentors.name as nama_tentor,
 					tentors.mapel as mapel_tentor,
 					tentors.id as id
@@ -84,7 +84,7 @@ class Tentors extends Authenticatable
 			->where('quiztentors.tentor_id', $id)
 			->whereRaw('MONTH(quiztentors.created_at) = MONTH(CURRENT_DATE())
 						AND YEAR(quiztentors.created_at) = YEAR(CURRENT_DATE())')
-			->get();
+			->first();
 		// dd($tentor);
 		return $tentor;
 	}

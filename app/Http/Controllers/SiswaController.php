@@ -142,7 +142,7 @@ class SiswaController extends Controller
 	}
 
 	public function quizupdate(Request $request){
-		//dd($request);
+		// dd($request);
 
 		$validate = $request->validate([
 			'ans.user' => 'required',
