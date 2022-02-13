@@ -3,7 +3,7 @@ window.addHTML = function(idsiswa, namasiswa){
     var btnExtrn_1 = $('<button/>', { text: namasiswa}).attr({
         type: "button",
         id: 'btnModal' + idsiswa,
-        class: 'col-md-2 ms-1 mt-1 btn buathitung btn-outline-primary block',
+        class: 'col-md-6 ms-1 mt-1 btn buathitung btn-outline-primary block',
         'data-bs-toggle': 'modal',
         'data-bs-target': '#siswa' + idsiswa,
     });
@@ -49,22 +49,22 @@ window.addHTML = function(idsiswa, namasiswa){
 
     headInter_1.appendTo('#modalHeader' + idsiswa)
 
-    var btnInter_1 = $('<button/>').attr({
-        type: 'button',
-        class: 'close btn btn-danger rounded-pill',
-        'data-bs-dismiss': 'modal',
-        'aria-label': 'Close',
-        id: 'btnInter' + idsiswa
-    })
+    // var btnInter_1 = $('<button/>').attr({
+    //     type: 'button',
+    //     class: 'btn btn-danger rounded-pill',
+    //     'data-bs-dismiss': 'modal',
+    //     'aria-label': 'Close',
+    //     id: 'btnInter' + idsiswa
+    // })
 
-    btnInter_1.appendTo('#modalHeader' + idsiswa)
+    // btnInter_1.appendTo('#modalHeader' + idsiswa)
 
-    var IconInter_1 = $('<i/>').attr({
-        'data-feather': 'x',
-        class: 'fa-solid fa-x'
-    })
+    // var IconInter_1 = $('<i/>').attr({
+    //     'data-feather': 'x',
+    //     class: 'fa-solid fa-x'
+    // })
 
-    IconInter_1.appendTo('#btnInter' + idsiswa)
+    // IconInter_1.appendTo('#btnInter' + idsiswa)
 
     var divExtrn_6 = $('<div/>').attr({
         class: 'modal-body',
@@ -145,7 +145,9 @@ window.addHTML = function(idsiswa, namasiswa){
     var thead = $('<thead/>').attr({ id: 'thead' + idsiswa })
     thead.appendTo('#table' + idsiswa)
 
-    $('<tr/>', {text: 'Kondisi Siswa'}).attr({ colspan: 3 }).appendTo('#thead' + idsiswa)
+    $('<tr/>').attr({id: 'TableRowHead1' + idsiswa}).appendTo('#thead' + idsiswa)
+
+    $('<th/>', {text: 'Kondisi Siswa'}).attr({ colspan: 3 }).appendTo('#TableRowHead1' + idsiswa)
 
     var tbody = $('<tbody/>').attr({ id: 'tbody' + idsiswa })
     tbody.appendTo('#table' + idsiswa)
@@ -215,7 +217,9 @@ window.addHTML = function(idsiswa, namasiswa){
     var thead = $('<thead/>').attr({ id: 'thead2' + idsiswa })
     thead.appendTo('#table2' + idsiswa)
 
-    $('<tr/>', {text: 'Kedisiplinan'}).attr({ colspan: 3 }).appendTo('#thead2' + idsiswa)
+    $('<tr/>').attr({id: 'TableRowHead2' + idsiswa}).appendTo('#thead2' + idsiswa)
+
+    $('<th/>', {text: 'Kedisiplinan'}).attr({ colspan: 3 }).appendTo('#TableRowHead2' + idsiswa)
 
     var tbody = $('<tbody/>').attr({ id: 'tbody2' + idsiswa })
     tbody.appendTo('#table2' + idsiswa)
@@ -285,7 +289,9 @@ window.addHTML = function(idsiswa, namasiswa){
     var thead = $('<thead/>').attr({ id: 'thead3' + idsiswa })
     thead.appendTo('#table3' + idsiswa)
 
-    $('<tr/>', {text: 'Kualitas Belajar'}).attr({ colspan: 3 }).appendTo('#thead3' + idsiswa)
+    $('<tr/>').attr({id: 'TableRowHead3' + idsiswa}).appendTo('#thead3' + idsiswa)
+
+    $('<th/>', {text: 'Kualitas Belajar'}).attr({ colspan: 3 }).appendTo('#TableRowHead3' + idsiswa)
 
     var tbody = $('<tbody/>').attr({ id: 'tbody3' + idsiswa })
     tbody.appendTo('#table3' + idsiswa)
@@ -328,7 +334,7 @@ window.addHTML = function(idsiswa, namasiswa){
 
         var InputText = $('<input/>').attr({
             type: 'text',
-            name: 'ans[' + idsiswa + '][' + i + ']',
+            name: 'ans[' + idsiswa + '][' + (8 + i)  + ']',
             class: 'form-control',
             id: 'ask'
         })
@@ -357,21 +363,21 @@ window.addHTML = function(idsiswa, namasiswa){
 
     var btnInter_2 = $('<button/>').attr({
         type: 'button',
-        class: 'btn',
+        class: 'btn btn-primary',
         'data-bs-dismiss': "modal",
         id: 'buttonClose' + idsiswa
     })
 
     btnInter_2.appendTo('#modalFooter' + idsiswa)
 
-    var icon2 = $('<i/>').attr({
-        class: 'bx bx-x d-block d-sm-none'
-    })
+    // var icon2 = $('<i/>').attr({
+    //     class: 'bx bx-x d-block d-sm-none'
+    // })
 
-    icon2.appendTo('#buttonClose' + idsiswa)
+    // icon2.appendTo('#buttonClose' + idsiswa)
 
-    var span = $('<span/>', {text: 'Close'}).attr({
-        class: 'd-none d-sm-block'
-    })
+    var span = $('<span/>', {text: 'Tutup'})
+
+    span.appendTo('#buttonClose' + idsiswa)
 
 };
