@@ -133,7 +133,7 @@ class ManageSiswaController extends Controller
 	public function showinvoice($id)
 	{
 		$siswa = Students::find($id);
-		$kehadiran = Reportusers::where('students', $id)->get();
+		$kehadiran = Reportusers::where('students', $id)->orderBy('created_at', 'desc')->get();
 		//dd($kehadiran);
 		return view('administrator.siswa.invoice', compact(['siswa', 'kehadiran']));
 
@@ -148,6 +148,14 @@ class ManageSiswaController extends Controller
                 $dataInvoice = Reportusers::whereIn('hash', $request->hash)->where('students', $id)->get();
                 $total = Reportusers::whereIn('hash', $request->hash)->where('students', $id)->sum('biaya');
 				return view('administrator.siswa.printinvoice', compact(['dataInvoice', 'siswa', 'total']));
+			break;
+            case 'print2nd':
+				$siswa = Students::find($id);
+                $tentor = Reportusers::whereIn('hash', $request->hash)->where('students', $id)->groupBy('name_tentors')->pluck('name_tentors');
+                $mapel = Reportusers::whereIn('hash', $request->hash)->where('students', $id)->groupBy('mapel')->pluck('mapel');
+                $dataInvoice = Reportusers::whereIn('hash', $request->hash)->where('students', $id)->get();
+                $total = Reportusers::whereIn('hash', $request->hash)->where('students', $id)->sum('biaya');
+				return view('administrator.siswa.printinvoice2nd', compact(['dataInvoice', 'siswa', 'total', 'tentor', 'mapel']));
 			break;
 			case 'paid':
 				foreach($request->hash as $each){

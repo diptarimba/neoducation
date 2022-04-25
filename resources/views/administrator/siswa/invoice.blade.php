@@ -1,10 +1,10 @@
 	@extends('layout.page')
-	
+
 	@section('sidebar')
 		@component('components.adminSidebar')
 		@endcomponent
 	@endsection
-	
+
 	@section('page-title')
 	<div class="page-title">
         <div class="row">
@@ -23,9 +23,9 @@
         </div>
     </div>
 	@endsection
-	
+
 	@section('tab-title','Invoice Siswa')
-	
+
 	@section('page-content')
 	<section class="section">
 	<div class="row">
@@ -52,14 +52,14 @@
                             <th>Tentor</th>
 							<th>Status Bayar</th>
                             <th>Waktu</th>
-							
+
                             <th>Biaya</th>
                         </tr>
                     </thead>
                     <tbody>
 					@foreach($kehadiran as $each)
                         <tr>
-							<td><input type="checkbox" name="hash[]" value="{{$each -> hash}}"></td>
+							<td><input type="checkbox" name="hash[]" value="{{$each -> hash}}" {{ ($each -> status_bayar == 'paid') ? 'disabled' : ''}}></td>
 							<td>{{	$each -> hash	}}</td>
 							<td>{{	$each -> topic	}}</td>
 							<td>{{	$each -> place }}</td>
@@ -75,6 +75,7 @@
                 </table>
 				<div class="row justify-content-center mt-1">
 				<button type="submit" name="action" value="print" class="col-md-2 mx-1 my-1 btn btn-outline-primary">Print</button>
+				<button type="submit" name="action" value="print2nd" class="col-md-2 mx-1 my-1 btn btn-outline-primary">Print2 Template</button>
 				<button type="submit" name="action" value="paid" class="col-md-2 mx-1 my-1 btn btn-outline-danger">Sudah Dibayar</button>
 				</div>
 			</form>
@@ -84,20 +85,20 @@
     </div>
     </section>
 	@endsection
-	
+
 	@section('header-custom')
 	<link rel="stylesheet" href="{{ asset('assets/vendors/simple-datatables/style.css') }}">
 	@endsection
-	
+
 	@section('footer-custom')
 	<script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
     <script>
 	$(document).ready(() =>{
-		
+
 		// Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
-		
-	})   
+
+	})
     </script>
 	@endsection

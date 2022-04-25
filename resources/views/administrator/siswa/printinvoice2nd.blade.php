@@ -1,8 +1,8 @@
 @extends('layout.page')
 
 @section('sidebar')
-    @component('components.adminSidebar')
-    @endcomponent
+@component('components.adminSidebar')
+@endcomponent
 @endsection
 
 @section('page-title')
@@ -25,79 +25,84 @@
 @endsection
 
 @section('tab-title')
-    Invoice Siswa
+Invoice Siswa
 @endsection
 
 @section('page-content')
 <section class="section" id="invoiceses">
-<div class="row">
-    <div class="card mb-3">
-    <div class="row g-0">
-        <div class="col-4 mt-3 mb-3 ms-4" style="max-width: 125px;">
-        <img src="{{ asset('assets/images/logo/logo_rounded.jpg')}}" class="img-fluid rounded-start" alt="...">
+    <div class="row">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-4 mt-3 mb-3 ms-4" style="max-width: 125px;">
+                    <img src="{{ asset('assets/images/logo/logo_rounded.jpg')}}" class="img-fluid rounded-start"
+                        alt="...">
+                </div>
+                <div class="col-8">
+                    <div class="card-body me-5">
+                        <h3 class="text-center text-black me-1">Neoducationz</h3>
+                        <p class="card-text text-center me-1"><strong>Jl. Kutoarjo No.78, Kuwarisan, RT 1 RW 11,
+                                <br />Panjer, Kebumen<br />Email: neoducationz@gmail.com, Telepon
+                                (0822)20682472</strong></p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-8">
-        <div class="card-body me-5">
-            <h3 class="text-center text-black me-1">Neoducationz</h3>
-            <p class="card-text text-center me-1"><strong>Jl. Kutoarjo No.78, Kuwarisan, RT 1 RW 11, <br/>Panjer, Kebumen<br/>Email: neoducationz@gmail.com, Telepon (0822)20682472</strong></p>
+        <div class="card">
+            <div class="card-header">
+                <p class="text-center h4 text-black">Invoice Pembayaran</p>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Siswa : {{$siswa->name}}</p>
+                <p class="card-text text-wrap">Tentor : {{ $tentor->implode(', ') }}</p>
+                <p class="card-text text-wrap">Mapel : {{ $mapel->implode(', ') }}</p>
+            </div>
         </div>
-        </div>
-    </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <p class="text-center h4 text-black">Invoice Pembayaran</p>
-        </div>
-        <div class="card-body">
-            <p class="card-text">Siswa : {{$siswa->name}}<br/>Paket : {{ucwords($siswa->package)}}</p>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
+        <div class="card">
+            <div class="card-header">
 
+            </div>
+            <div class="card-body">
+                <table class="table table-striped ">
+                    <thead>
+                        <th>No</th>
+                        <th colspan="2">Tanggal Pembelajaran</th>
+                        <th>Biaya</th>
+                    </thead>
+
+                    <tbody class="siapprint">
+                        {{-- @if ($dataInvoice->count() > 8) --}}
+                        @for ($no = 0; $no < 8; $no++)
+                        <tr>
+                            <td>{{ $no + 1 }}</td>
+                            <td>{{date('d F Y', strtotime($dataInvoice[$no]->date_exec)) . ' ' . $dataInvoice[$no]->mapel}}</td>
+                            <td>{{
+                            isset($dataInvoice[$no + 8]) ?
+                                date('d F Y', strtotime($dataInvoice[$no + 8]->date_exec)) . ' ' . $dataInvoice[$no + 8]->mapel :
+                                ''
+                            }}</td>
+                            <td>{{ isset($dataInvoice[$no + 8]) ?
+                                    number_format($dataInvoice[$no]->biaya,"0",",",".") . ' + ' . number_format($dataInvoice[$no + 8]->biaya,"0",",",".") :
+                                    number_format($dataInvoice[$no]->biaya,"0",",",".")
+                                }}</td>
+                        </tr>
+                        @endfor
+                        <tr>
+                            <td class="text-center" colspan="3">Total {{$dataInvoice->count()}} Pertemuan</td>
+                            <td>Rp. {{number_format($total,"0",",",".")}}
+                        </tr>
+                        {{-- @endif --}}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="card-body">
-            <table class="table table-striped " >
-
-                <thead>
-                    <th>No</th>
-                    <th>Keterangan</th>
-                    <th>Waktu</th>
-                    <th>Biaya</th>
-                </thead>
-
-                <tbody class="siapprint"><!--
-                <tr>
-                    <td><b>No</b></td>
-                    <td><b>Keterangan</b></td>
-                    <td><b>Waktu</b></td>
-                    <td><b>Biaya</b></td>
-                </tr> -->
-                    @foreach($dataInvoice as $each)
-                    <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>Topik : {{$each->topic}}<br/>Mata Pelajaran : {{$each->mapel}}<br/>Nama Tentor : {{$each->name_tentors}}</td>
-                        <td>{{$each->date_exec}}<br/></td>
-                    <td>Rp. {{number_format($each->biaya,"0",",",".")}}</td>
-                    </tr>
-                    @endforeach
-                    <tr>
-                        <td class="text-center" colspan="3">Total</td>
-                        <td>Rp. {{number_format($total,"0",",",".")}}
-                    </tr>
-
-                </tbody>
-            </table>
+        <div class="container col-3 containerbutton">
+            <div class="row justify-content-end">
+                <div class="card ">
+                    <button class="btn btn-primary btnprint col-md">Print Invoice</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="container col-3 containerbutton">
-    <div class="row justify-content-end">
-    <div class="card ">
-            <button class="btn btn-primary btnprint col-md">Print Invoice</button>
-    </div>
-    </div>
-    </div>
-</div>
 </section>
 @endsection
 
@@ -106,9 +111,9 @@
 @endsection
 
 @section('footer-custom')
-    <script src="{{ asset('assets/js/extensions/jQuery.print.min.js') }}"></script>
-    <script>
-        $(document).ready(() => {
+<script src="{{ asset('assets/js/extensions/jQuery.print.min.js') }}"></script>
+<script>
+    $(document).ready(() => {
             console.log($('.siapprint'));
             $('.btnprint').on('click', function(){
 
@@ -155,5 +160,5 @@
                 });
             })
         })
-    </script>
+</script>
 @endsection

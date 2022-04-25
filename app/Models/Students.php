@@ -40,6 +40,13 @@ class Students extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    protected $appends = [
+        'count',
+        'unpaid_count',
+        'paid_count'
+    ];
+
 	function getQuizList($id)
 	{
 
@@ -143,6 +150,19 @@ class Students extends Authenticatable
 
     public function reportuser()
     {
-        return $this->hasMany('\App\Models\Reportusers');
+        return $this->hasMany('\App\Models\Reportusers', 'students', 'id');
+    }
+
+    public function getCountAttribute()
+    {
+        return $this->reportuser()->count();
+    }
+    public function getPaidCountAttribute()
+    {
+        return $this->reportuser()->where('status_bayar', 'paid')->count();
+    }
+    public function getUnpaidCountAttribute()
+    {
+        return $this->reportuser()->where('status_bayar', 'unpaid')->count();
     }
 }
