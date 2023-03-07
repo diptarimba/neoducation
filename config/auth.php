@@ -40,17 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-		
+
 		'siswa' => [
             'driver' => 'session',
             'provider' => 'students',
         ],
-		
+
 		'tentor' => [
             'driver' => 'session',
             'provider' => 'tentors',
         ],
-		
+
 		'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -85,20 +85,20 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-		
+
 		'tentors' => [
 			'driver' => 'eloquent',
 			'model' => App\Models\Tentors::class,
 		],
-		
+
 		'students' => [
 			'driver' => 'eloquent',
 			'model' => App\Models\Students::class,
 		],
-		
+
 		'admins' => [
 			'driver' => 'eloquent',
-			'model' => App\Models\admins::class,
+			'model' => App\Models\Admins::class,
 		],
     ],
 
@@ -142,7 +142,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-		
+
     ],
 
     /*
